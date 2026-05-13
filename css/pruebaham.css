@@ -11,7 +11,7 @@ body {
 }
 
 /* Clase para los iconos SVG (menú hamburguesa) */
-.svg {
+Lista {
     width: 2em;
     height: 2em;
     filter: invert(100%); /* Cambia el color a blanco */
@@ -51,7 +51,7 @@ body {
     flex-flow: row nowrap;
     justify-content: flex-end;
     align-items: center;
-    list-style: none; /* Quita los puntos de la lista */
+    list-style: none;
     margin: 0;
     padding: 0;
 }

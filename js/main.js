@@ -1,47 +1,60 @@
-// Esperar a que el DOM esté completamente cargado (opcional si usaste 'defer' en HTML, pero es una buena práctica)
+// ============================================================
+//  BANCA 360 — Script global (main.js)
+//  Maneja: menú hamburguesa, modo oscuro, ocultar/mostrar saldo
+// ============================================================
+
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // 1. Seleccionar los elementos del HTML
-    const boton = document.getElementById('miBoton');
-    const mensaje = document.getElementById('mensaje');
-    const botonhomepage = document.getElementById('iniciobtn');
-    const temabtn = document.getElementById('Temabtn');
-    // Capturamos el botón y el panel lateral
-    const btnMenu = document.getElementById('menu-toggle');
-    const sidebar = document.getElementById('sidebar');
 
-    // Escuchamos el clic
-    btnMenu.addEventListener('click', () => {
-        // toggle() es una función maravillosa: 
-        // Si la clase 'open' no está, se la pone. Si ya está, se la quita.
-        sidebar.classList.toggle('open');
-    });
-    // Cerrar el menú al hacer clic en cualquier enlace dentro de él
+    /* ----------------------------------------------------------
+       1. MENÚ HAMBURGUESA
+    ---------------------------------------------------------- */
+    const btnMenu  = document.getElementById('btnMenu');
+    const mainNav  = document.getElementById('mainNav');
 
+    if (btnMenu && mainNav) {
+        btnMenu.addEventListener('click', () => {
+            const isOpen = mainNav.classList.toggle('activo');
+            btnMenu.setAttribute('aria-expanded', isOpen);
+        });
+    }
 
-    // 2. Crear una función para manejar el evento
-    const cambiarMensajePrueba = () => {
-        mensaje.textContent = '¡El proyecto está configurado correctamente!';
-        mensaje.style.color = '#28a745';
-        mensaje.style.fontWeight = 'bold';
-    };
+    /* ----------------------------------------------------------
+       2. MODO OSCURO / MODO CLARO
+       Persiste la preferencia en localStorage
+    ---------------------------------------------------------- */
+    const themeToggle = document.getElementById('btnTheme');
 
-    const cambiarMensajeInicio = () => {
-        mensaje.textContent = '¡El proyecto está configurado y vas al Inicio!';
-        mensaje.style.color = '#28a745'; 
-        mensaje.style.fontWeight = 'bold';
-    };
-
-    // 3. Asignar el evento 'click' al botón
-    boton.addEventListener('click', cambiarMensajePrueba);
-    iniciobtn.addEventListener('click', cambiarMensajeInicio);
-
-    temabtn.addEventListener('click', () => {
-        const currentTheme = document.body.getAttribute('data-theme');
-        if (currentTheme === 'dark') {
-        document.body.removeAttribute('data-theme');
+    // Si usas body.dark para tu CSS:
+    themeToggle.addEventListener('change', () => {
+        if (themeToggle.checked) {
+            document.body.classList.add('dark');
         } else {
-        document.body.setAttribute('data-theme', 'dark');
-        } 
+            document.body.classList.remove('dark');
+        }
     });
+
+    /* ----------------------------------------------------------
+       3. OCULTAR / MOSTRAR SALDO (ícono de ojo)
+    ---------------------------------------------------------- */
+    const btnToggle = document.getElementById('btnToggleBalance');
+    const balanceEl = document.getElementById('balanceAmount');
+    const eyeIcon   = document.getElementById('eyeIcon');
+
+    // SVG paths para ojo abierto y ojo cerrado
+    const EYE_OPEN   = `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                        <circle cx="12" cy="12" r="3"/>`;
+    const EYE_CLOSED = `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8
+                         a18.45 18.45 0 0 1 5.06-5.94"/>
+                        <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8
+                         a18.5 18.5 0 0 1-2.16 3.19"/>
+                        <line x1="1" y1="1" x2="23" y2="23"/>`;
+
+    if (btnToggle && balanceEl && eyeIcon) {
+        btnToggle.addEventListener('click', () => {
+            const isHidden = balanceEl.classList.toggle('hidden');
+            eyeIcon.innerHTML = isHidden ? EYE_CLOSED : EYE_OPEN;
+            btnToggle.setAttribute('aria-label', isHidden ? 'Mostrar saldo' : 'Ocultar saldo');
+        });
+    }
+
 });

@@ -1,15 +1,295 @@
-menu global 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago Móvil - Banca 360</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Hoja de estilos global -->
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>
+    <script src="js/pago-movil.js" defer></script>
+</head>
+<body>
 
-Enlace "Inicio/Resumen" -> dashboard.html
+    <!-- ========== HEADER GLOBAL ========== -->
+    <header class="header">
+        <h1 class="header__logo">
+            <a href="Inicio.html" class="header__logo-link">
+                <img src="assets/img/Banca360.png" alt="Banca 360" class="header__logo-img">
+            </a>
+        </h1>
 
-Enlace "Transferencias" -> transferencias.html
+        <div class="header__controls">
+            <button class="btn-theme" id="btnTheme" aria-label="Cambiar tema">
+                <span class="btn-theme__icon" id="themeIcon">🌙</span>
+            </button>
+            <button class="btn-hamburger" id="btnMenu" aria-label="Abrir menú" aria-expanded="false">
+                <img src="assets/img/list.svg" alt="Menú" class="btn-hamburger__icon">
+            </button>
+        </div>
 
-Enlace "Pago Móvil" -> pago-movil.html
+        <nav class="nav" id="mainNav" aria-label="Navegación principal">
+            <ul class="nav__list">
+                <li class="nav__item"><a href="Inicio.html"          class="nav__link">Inicio</a></li>
+                <li class="nav__item"><a href="transferencias.html"  class="nav__link">Transferencias</a></li>
+                <li class="nav__item"><a href="pago-movil.html"      class="nav__link nav__link--active">Pago Móvil</a></li>
+                <li class="nav__item"><a href="depositos.html"       class="nav__link">Depósitos</a></li>
+                <li class="nav__item"><a href="historial.html"       class="nav__link">Historial</a></li>
+                <li class="nav__item"><a href="perfil.html"          class="nav__link">Mi Perfil</a></li>
+                <li class="nav__item">
+                    <a href="sesion-finalizada.html" class="nav__link nav__link--logout">Cerrar Sesión</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
 
-Enlace "Depósitos" -> depositos.html
+    <!-- ========== CONTENIDO PRINCIPAL ========== -->
+    <main class="main-content">
 
-Enlace "Historial" -> historial.html
+        <!-- Encabezado de página -->
+        <section class="page-header" aria-label="Título de sección">
+            <div class="page-header__icon">📱</div>
+            <div>
+                <h2 class="page-header__title">Pago Móvil</h2>
+                <p class="page-header__subtitle">Realiza pagos rápidos con número de teléfono</p>
+            </div>
+        </section>
 
-Enlace "Mi Perfil" -> perfil.html
+        <!-- Tarjeta del formulario -->
+        <section class="form-card" aria-label="Formulario de pago móvil">
+            <form id="pagoMovilForm" class="pm-form" novalidate>
 
-Botón "Cerrar Sesión" -> sesion-finalizada.html
+                <!-- ── FILA 1: Tipo de documento + N° documento ── -->
+                <fieldset class="pm-form__group pm-form__group--split">
+                    <legend class="pm-form__legend">Cédula / RIF del receptor</legend>
+
+                    <!-- Selector tipo de documento -->
+                    <div class="pm-form__field">
+                        <label for="tipoDoc" class="pm-form__label">Tipo</label>
+                        <div class="pm-form__select-wrap">
+                            <select id="tipoDoc" name="tipoDoc" class="pm-form__select" required>
+                                <option value="">--</option>
+                                <option value="V">V</option>
+                                <option value="E">E</option>
+                                <option value="J">J</option>
+                                <option value="R">R</option>
+                            </select>
+                            <span class="pm-form__select-arrow">▾</span>
+                        </div>
+                        <span class="pm-form__error" id="tipoDocError"></span>
+                    </div>
+
+                    <!-- Número de documento -->
+                    <div class="pm-form__field pm-form__field--grow">
+                        <label for="numDoc" class="pm-form__label">Número de documento</label>
+                        <input
+                            type="text"
+                            id="numDoc"
+                            name="numDoc"
+                            class="pm-form__input"
+                            placeholder="Ej: 12345678"
+                            maxlength="9"
+                            inputmode="numeric"
+                            required
+                        >
+                        <span class="pm-form__error" id="numDocError"></span>
+                    </div>
+                </fieldset>
+
+                <!-- ── FILA 2: Banco destino ── -->
+                <div class="pm-form__field">
+                    <label for="banco" class="pm-form__label">Banco destino</label>
+                    <div class="pm-form__select-wrap">
+                        <select id="banco" name="banco" class="pm-form__select" required>
+                            <option value="">Selecciona un banco</option>
+                            <option value="0172">Bancamiga</option>
+                            <option value="0134">Banesco</option>
+                            <option value="0102">Banco de Venezuela</option>
+                            <option value="0105">Mercantil</option>
+                            <option value="0108">BBVA Provincial</option>
+                            <option value="0115">Exterior</option>
+                            <option value="0128">Caroní</option>
+                            <option value="0137">Sofitasa</option>
+                            <option value="0151">BFC</option>
+                            <option value="0163">Banco del Tesoro</option>
+                            <option value="0166">Bancaribe</option>
+                            <option value="0168">Bancrecer</option>
+                            <option value="0175">Bicentenario</option>
+                            <option value="0191">BNC</option>
+                        </select>
+                        <span class="pm-form__select-arrow">▾</span>
+                    </div>
+                    <span class="pm-form__error" id="bancoError"></span>
+                </div>
+
+                <!-- ── FILA 3: Prefijo + Número de teléfono ── -->
+                <fieldset class="pm-form__group pm-form__group--split">
+                    <legend class="pm-form__legend">Teléfono del receptor</legend>
+
+                    <!-- Selector prefijo -->
+                    <div class="pm-form__field">
+                        <label for="prefijo" class="pm-form__label">Prefijo</label>
+                        <div class="pm-form__select-wrap">
+                            <select id="prefijo" name="prefijo" class="pm-form__select" required>
+                                <option value="">---</option>
+                                <option value="0412">0412</option>
+                                <option value="0414">0414</option>
+                                <option value="0416">0416</option>
+                                <option value="0422">0422</option>
+                                <option value="0424">0424</option>
+                            </select>
+                            <span class="pm-form__select-arrow">▾</span>
+                        </div>
+                        <span class="pm-form__error" id="prefijoError"></span>
+                    </div>
+
+                    <!-- Número de teléfono (7 dígitos restantes) -->
+                    <div class="pm-form__field pm-form__field--grow">
+                        <label for="numTelefono" class="pm-form__label">Número (7 dígitos)</label>
+                        <input
+                            type="text"
+                            id="numTelefono"
+                            name="numTelefono"
+                            class="pm-form__input"
+                            placeholder="Ej: 1234567"
+                            maxlength="7"
+                            inputmode="numeric"
+                            required
+                        >
+                        <span class="pm-form__error" id="numTelefonoError"></span>
+                    </div>
+                </fieldset>
+
+                <!-- ── FILA 4: Monto ── -->
+                <div class="pm-form__field">
+                    <label for="monto" class="pm-form__label">Monto (Bs.)</label>
+                    <div class="pm-form__input-prefix-wrap">
+                        <!-- Prefijo visual fijo -->
+                        <span class="pm-form__input-prefix">Bs.</span>
+                        <input
+                            type="text"
+                            id="monto"
+                            name="monto"
+                            class="pm-form__input pm-form__input--with-prefix"
+                            placeholder="0,00"
+                            inputmode="decimal"
+                            required
+                        >
+                    </div>
+                    <span class="pm-form__hint">Solo números positivos. Formato: 1.500,00</span>
+                    <span class="pm-form__error" id="montoError"></span>
+                </div>
+
+                <!-- ── FILA 5: Concepto ── -->
+                <div class="pm-form__field">
+                    <label for="concepto" class="pm-form__label">Concepto</label>
+                    <input
+                        type="text"
+                        id="concepto"
+                        name="concepto"
+                        class="pm-form__input"
+                        placeholder="Ej: Pago de servicio"
+                        maxlength="100"
+                        required
+                    >
+                    <span class="pm-form__char-count" id="conceptoCount">0 / 100</span>
+                    <span class="pm-form__error" id="conceptoError"></span>
+                </div>
+
+                <!-- ── Resumen previo al envío ── -->
+                <div class="pm-summary" id="pmSummary" hidden>
+                    <h3 class="pm-summary__title">Resumen del pago</h3>
+                    <dl class="pm-summary__list">
+                        <div class="pm-summary__row">
+                            <dt>Receptor</dt>
+                            <dd id="summaryReceptor">—</dd>
+                        </div>
+                        <div class="pm-summary__row">
+                            <dt>Banco</dt>
+                            <dd id="summaryBanco">—</dd>
+                        </div>
+                        <div class="pm-summary__row">
+                            <dt>Teléfono</dt>
+                            <dd id="summaryTelefono">—</dd>
+                        </div>
+                        <div class="pm-summary__row pm-summary__row--total">
+                            <dt>Monto</dt>
+                            <dd id="summaryMonto">—</dd>
+                        </div>
+                        <div class="pm-summary__row">
+                            <dt>Concepto</dt>
+                            <dd id="summaryConcepto">—</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <!-- ── Botones ── -->
+                <div class="pm-form__actions">
+                    <button type="button" class="btn btn--secondary" id="btnPreview">
+                        Vista previa
+                    </button>
+                    <button type="submit" class="btn btn--primary" id="btnEnviar">
+                        Confirmar pago
+                    </button>
+                </div>
+
+            </form>
+        </section>
+
+        <!-- ── Modal de éxito ── -->
+        <div class="pm-modal" id="pmModal" role="dialog" aria-modal="true"
+             aria-labelledby="modalTitle" hidden>
+            <div class="pm-modal__box">
+                <div class="pm-modal__icon">✅</div>
+                <h3 class="pm-modal__title" id="modalTitle">¡Pago enviado!</h3>
+                <p class="pm-modal__msg" id="modalMsg"></p>
+                <button class="btn btn--primary pm-modal__close" id="btnModalClose">
+                    Aceptar
+                </button>
+            </div>
+        </div>
+        <!-- Fondo oscuro del modal -->
+        <div class="pm-modal__backdrop" id="pmBackdrop" hidden></div>
+
+    </main>
+
+    <!-- ========== FOOTER GLOBAL ========== -->
+    <footer class="footer">
+        <div class="footer__grid">
+            <div class="footer__col">
+                <p class="footer__brand">Banca 360</p>
+                <p class="footer__copy">© 2026 Banca 360.<br>Todos los derechos reservados.</p>
+            </div>
+            <div class="footer__col">
+                <p class="footer__heading">Conoce</p>
+                <ul class="footer__list">
+                    <li><a href="#" class="footer__link">Acerca de Banca 360</a></li>
+                    <li><a href="#" class="footer__link">Información</a></li>
+                    <li><a href="#" class="footer__link">Términos y condiciones</a></li>
+                </ul>
+            </div>
+            <div class="footer__col">
+                <p class="footer__heading">Síguenos</p>
+                <div class="footer__social">
+                    <a href="#" class="footer__social-link" aria-label="Instagram">
+                        <img src="assets/img/instagram.svg" alt="Instagram" class="footer__social-icon">
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="Facebook">
+                        <img src="assets/img/facebook.svg" alt="Facebook" class="footer__social-icon">
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="LinkedIn">
+                        <img src="assets/img/linkedin.svg" alt="LinkedIn" class="footer__social-icon">
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="YouTube">
+                        <img src="assets/img/youtube.svg" alt="YouTube" class="footer__social-icon">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
