@@ -1,19 +1,73 @@
-menu global 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambio de clave</title>
 
-Enlace "Inicio/Resumen" -> dashboard.html
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/app.js" defer></script>
+</head>
+<body>
+    <!-- ========== HEADER GLOBAL ========== -->
+    <header class="header">
+        <h1 class="header__logo">
+            <a href="dashboard.html" class="header__logo-link">
+                <img src="assets/img/Banca360.png" alt="Banca 360" class="header__logo-img">
+            </a>
+        </h1>
 
-Enlace "Transferencias" -> transferencias.html
+        <div class="header__controls">
+            <button class="btn-theme" id="btnTheme" aria-label="Cambiar tema">
+                <span class="btn-theme__icon" id="themeIcon">🌙</span>
+            </button>
 
-Enlace "Pago Móvil" -> pago-movil.html
+            <button class="btn-hamburger" id="btnMenu" aria-label="Abrir menú" aria-expanded="false">
+                <img src="assets/img/list.svg" alt="Menú" class="btn-hamburger__icon">
+            </button>
+        </div>
 
-Enlace "Depósitos" -> depositos.html
+        <nav class="nav" id="mainNav" aria-label="Navegación principal">
+            <ul class="nav__list">
+                <li class="nav__item"><a href="dashboard.html" class="nav__link">Inicio/Resumen</a></li>
+                <li class="nav__item"><a href="transferencias.html" class="nav__link">Transferencias</a></li>
+                <li class="nav__item"><a href="pago-movil.html" class="nav__link">Pago Móvil</a></li>
+                <li class="nav__item"><a href="depositos.html" class="nav__link">Depósitos</a></li>
+                <li class="nav__item"><a href="historial.html" class="nav__link">Historial</a></li>
+                <li class="nav__item"><a href="perfil.html" class="nav__link nav__link--active">Mi Perfil</a></li>
+                <li class="nav__item">
+                    <a href="sesion-finalizada.html" class="nav__link nav__link--logout">Cerrar Sesión</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
 
-Enlace "Historial" -> historial.html
+    <main class="main">
+        <section class="form-section">
+            <h2 class="form-section__title">Cambio de clave</h2>
 
-Enlace "Mi Perfil" -> perfil.html
+            <form class="form" action="perfil.html" method="post">
+                <div class="form__group">
+                    <label for="claveActual" class="form__label">Clave actual</label>
+                    <input type="password" id="claveActual" name="claveActual" class="form__input" required>
+                </div>
 
-Botón "Cerrar Sesión" -> sesion-finalizada.html
+                <div class="form__group">
+                    <label for="nuevaClave" class="form__label">Nueva clave</label>
+                    <input type="password" id="nuevaClave" name="nuevaClave" class="form__input" required>
+                </div>
 
+                <div class="form__group">
+                    <label for="confirmarClave" class="form__label">Confirmar nueva clave</label>
+                    <input type="password" id="confirmarClave" name="confirmarClave" class="form__input" required>
+                </div>
 
-
-Botón "Guardar" o "Cancelar" -> perfil.html
+                <div class="form__actions">
+                    <a href="perfil.html" class="btn btn--secondary">Cancelar</a>
+                    <button type="submit" class="btn btn--primary">Guardar</button>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

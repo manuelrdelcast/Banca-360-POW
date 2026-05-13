@@ -1,4 +1,32 @@
-Crear cuenta-> registro.html
-Iniciar sesión-> login.html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Banca 360</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+       <a href="index.html"><img src="assets/img/Banca360.png" alt="Banca 360"></a>
+       <h2 class="Dashboard">Iniciar Sesión</h2>
+    </header>
 
-Botón "Cambiar contraseña" -> cambio-clave.html
+    <main style="padding: 20px; max-width: 400px; margin: auto;">
+        <form action="login.html" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
+            <label for="usuario">Usuario / Documento de Identidad:</label>
+            <input type="text" id="usuario" name="usuario" required style="padding: 8px;">
+
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required style="padding: 8px;">
+
+            <button type="submit" style="padding: 10px; background-color: LightGreen; border: none; font-weight: bold; cursor: pointer;">Iniciar sesión</button>
+        </form>
+        
+        <div style="margin-top: 20px; text-align: center;">
+            <a href="registro.html" style="color: darkgreen;">Crear cuenta</a> | 
+            <a href="cambio-clave.html" style="color: darkgreen;">Cambiar contraseña</a>
+        </div>
+    </main>
+</body>
+</html>
