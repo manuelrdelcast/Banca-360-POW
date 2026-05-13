@@ -1,1 +1,26 @@
-Botón "Volver al inicio" -> index.html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión Finalizada - Banca 360</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+       <a href="index.html"><img src="assets/img/Banca360.png" alt="Banca 360"></a>
+       <h2 class="Dashboard">Desconexión Exitosa</h2>
+    </header>
+
+    <main style="padding: 40px; text-align: center;">
+        <div style="max-width: 500px; margin: auto; border: 1px solid #ddd; padding: 30px; background-color: #f9f9f9;">
+            <h3 style="color: darkgreen;">Tu sesión ha finalizado de forma segura</h3>
+            <p style="margin-bottom: 25px;">Gracias por utilizar Banca 360. Para ingresar nuevamente, haz clic en el botón de abajo.</p>
+            
+            <button onclick="window.location.href='index.html'" style="padding: 10px 20px; background-color: LightGreen; border: none; font-weight: bold; cursor: pointer;">
+                Volver al inicio
+            </button>
+        </div>
+    </main>
+</body>
+</html>

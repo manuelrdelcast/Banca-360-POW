@@ -1,15 +1,40 @@
-menu global 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - Banca 360</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+       <a href="dashboard.html"><img src="assets/img/Banca360.png" alt="Banca 360"></a>
+       <h2 class="Dashboard">Mi Perfil</h2>
 
-Enlace "Inicio/Resumen" -> dashboard.html
+       <nav>
+            <a href="dashboard.html" class="nav-link">Inicio/Resumen</a>
+            <a href="transferencias.html" class="nav-link">Transferencias</a>
+            <a href="pago-movil.html" class="nav-link">Pago Móvil</a>
+            <a href="depositos.html" class="nav-link">Depósitos</a>
+            <a href="historial.html" class="nav-link">Historial</a>
+            <a href="perfil.html" class="nav-link">Mi Perfil</a>
+       </nav>
+    </header>
 
-Enlace "Transferencias" -> transferencias.html
+    <main style="padding: 20px;">
+        <section style="border: 1px solid #ccc; padding: 20px; max-width: 600px; margin: auto;">
+            <h3>Datos del Usuario</h3>
+            <p><strong>Nombre:</strong> Usuario de Prueba</p>
+            <p><strong>Cédula:</strong> V-12345678</p>
+            <p><strong>Email:</strong> usuario@correo.com</p>
+            <p><strong>Teléfono Afiliado:</strong> 0414-0000000</p>
+        </section>
 
-Enlace "Pago Móvil" -> pago-movil.html
-
-Enlace "Depósitos" -> depositos.html
-
-Enlace "Historial" -> historial.html
-
-Enlace "Mi Perfil" -> perfil.html
-
-Botón "Cerrar Sesión" -> sesion-finalizada.html
+        <div style="margin-top: 30px; text-align: center;">
+            <button onclick="window.location.href='sesion-finalizada.html'" style="padding: 10px 20px; background-color: #ff4d4d; color: white; border: none; font-weight: bold; cursor: pointer;">
+                Cerrar Sesión
+            </button>
+        </div>
+    </main>
+</body>
+</html>
