@@ -1,17 +1,179 @@
-menu global 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Transacciones - Banca 360</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/app.js" defer></script>   
+</head>  
+<body class="dark">
+    <header class="header">
+        <h1 class="header__logo">
+            <a href="dashboard.html" class="header__logo-link">
+                <img src="assets/img/Banca360.png" alt="Banca 360" class="header__logo-img">
+            </a>
+        </h1>
 
-Enlace "Inicio/Resumen" -> dashboard.html
+        <div class="header__controls">
+            <button class="btn-theme" id="btnTheme" aria-label="Cambiar tema">
+                <div class="theme-switch" id="themeSwitch">🌙</div>
+            </button>
+            <button class="btn-hamburger" id="btnMenu" aria-label="Abrir menú" aria-expanded="false">
+                <span style="font-size:1.5rem; color:#fff;">☰</span>
+            </button>
+        </div>
 
-Enlace "Transferencias" -> transferencias.html
+        <nav class="nav" id="mainNav" aria-label="Navegación principal">
+            <ul class="nav__list">
+                <li class="nav__item"><a href="dashboard.html" class="nav__link">Inicio/Resumen</a></li>
+                <li class="nav__item"><a href="transferencias.html" class="nav__link">Transferencias</a></li>
+                <li class="nav__item"><a href="pago-movil.html" class="nav__link">Pago Móvil</a></li>
+                <li class="nav__item"><a href="depositos.html" class="nav__link">Depósitos</a></li>
+                <li class="nav__item"><a href="historial.html" class="nav__link nav__link--active">Historial</a></li>
+                <li class="nav__item"><a href="perfil.html" class="nav__link">Mi Perfil</a></li>
+                <li class="nav__item">
+                    <a href="sesion-finalizada.html" class="nav__link nav__link--logout">Cerrar Sesión</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
 
-Enlace "Pago Móvil" -> pago-movil.html
+    <main class="main-content" style="max-width: 800px;">
+        <!-- Cabecera de la sección con filtro -->
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1em; margin-bottom: 0.5em;">
+            <h2 class="section-title" id="tituloMovimientos" style="margin-bottom: 0;">Todos los Movimientos</h2>
+            
+            <div class="pm-form__select-wrap" style="min-width: 180px;">
+                <select id="filtroMes" class="pm-form__select" style="padding-top: 0.4em; padding-bottom: 0.4em;">
+                    <option value="actual">Este mes</option>
+                    <option value="anterior">Mes anterior</option>
+                    <option value="todos">Todos los tiempos</option>
+                </select>
+                <span class="pm-form__select-arrow">▼</span>
+            </div>
+        </div>
 
-Enlace "Depósitos" -> depositos.html
+        <!-- Botones de Segmentación Rápida -->
+        <div style="display: flex; gap: 0.5em; margin-bottom: 1.5em; flex-wrap: wrap;">
+            <button class="btn btn--secondary btn-filter active" data-filter="all" style="padding: 0.5em 1em; font-size: 0.85rem; min-width: auto; background-color: var(--color-primary); color: #fff;">Todos</button>
+            <button class="btn btn--secondary btn-filter" data-filter="in" style="padding: 0.5em 1em; font-size: 0.85rem; min-width: auto;">Solo Entradas</button>
+            <button class="btn btn--secondary btn-filter" data-filter="out" style="padding: 0.5em 1em; font-size: 0.85rem; min-width: auto;">Solo Salidas</button>
+        </div>
 
-Enlace "Historial" -> historial.html
+        <!-- Lista de transacciones -->
+        <ul class="transactions-list" id="listaTransacciones">
+            
+            <!-- Ingreso -->
+            <li class="transaction-item" data-type="in">
+                <a href="detalle-transacciones.html?ref=1837492&fecha=Hoy,%2010:45%20AM&concepto=Recarga%20Efectivo%20Taquilla&monto=5000.00&tipo=in" class="transaction-item__link">
+                    <div class="transaction-item__icon transaction-item__icon--in">↓</div>
+                    <div class="transaction-item__info">
+                        <span class="transaction-item__desc">Recarga Efectivo Taquilla</span>
+                        <span class="transaction-item__date">Hoy, 10:45 AM</span>
+                    </div>
+                    <span class="transaction-item__amount transaction-item__amount--in">+ Bs. 5,000.00</span>
+                </a>
+            </li>
 
-Enlace "Mi Perfil" -> perfil.html
+            <!-- Salida (Pago Móvil) -->
+            <li class="transaction-item" data-type="out">
+                <a href="detalle-transacciones.html?ref=9283742&fecha=Ayer,%2004:20%20PM&concepto=Pago%20Móvil%20-%20Supermercado&monto=450.00&tipo=out" class="transaction-item__link">
+                    <div class="transaction-item__icon transaction-item__icon--out">↑</div>
+                    <div class="transaction-item__info">
+                        <span class="transaction-item__desc">Pago Móvil - Supermercado</span>
+                        <span class="transaction-item__date">Ayer, 04:20 PM</span>
+                    </div>
+                    <span class="transaction-item__amount transaction-item__amount--out">- Bs. 450.00</span>
+                </a>
+            </li>
+            
+            <!-- Salida (Transferencia) -->
+            <li class="transaction-item" data-type="out">
+                <a href="detalle-transacciones.html?ref=1029384&fecha=10%20Mayo%202026,%2002:15%20PM&concepto=Transferencia%20-%20Juan%20Pérez&monto=1000.00&tipo=out" class="transaction-item__link">
+                    <div class="transaction-item__icon transaction-item__icon--out">↑</div>
+                    <div class="transaction-item__info">
+                        <span class="transaction-item__desc">Transferencia - Juan Pérez</span>
+                        <span class="transaction-item__date">10 Mayo 2026, 02:15 PM</span>
+                    </div>
+                    <span class="transaction-item__amount transaction-item__amount--out">- Bs. 1,000.00</span>
+                </a>
+            </li>
 
-Botón "Cerrar Sesión" -> sesion-finalizada.html
+            <!-- Ingreso (Transferencia) -->
+            <li class="transaction-item" data-type="in">
+                <a href="detalle-transacciones.html?ref=8273645&fecha=08%20Mayo%202026,%2009:30%20AM&concepto=TDC%20Mismo%20Banco%20-%20María%20Gomez&monto=2300.00&tipo=in" class="transaction-item__link">
+                    <div class="transaction-item__icon transaction-item__icon--in">↓</div>
+                    <div class="transaction-item__info">
+                        <span class="transaction-item__desc">TDC Mismo Banco - María Gomez</span>
+                        <span class="transaction-item__date">08 Mayo 2026, 09:30 AM</span>
+                    </div>
+                    <span class="transaction-item__amount transaction-item__amount--in">+ Bs. 2,300.00</span>
+                </a>
+            </li>
+            
+            <!-- Salida -->
+            <li class="transaction-item" data-type="out">
+                <a href="detalle-transacciones.html?ref=7382910&fecha=05%20Mayo%202026,%2011:10%20AM&concepto=Pago%20Móvil%20-%20Farmacia%20Centro&monto=320.50&tipo=out" class="transaction-item__link">
+                    <div class="transaction-item__icon transaction-item__icon--out">↑</div>
+                    <div class="transaction-item__info">
+                        <span class="transaction-item__desc">Pago Móvil - Farmacia Centro</span>
+                        <span class="transaction-item__date">05 Mayo 2026, 11:10 AM</span>
+                    </div>
+                    <span class="transaction-item__amount transaction-item__amount--out">- Bs. 320.50</span>
+                </a>
+            </li>
 
-Enlace en cada transacción de la lista completa -> detalle-transaccion.html
+        </ul>
+
+        <!-- Botón cargar más -->
+        <div style="text-align: center; margin-top: 2em;">
+            <button class="btn btn--secondary" style="font-size: 0.85rem; padding: 0.6em 1.25em;">
+                Cargar más movimientos
+            </button>
+        </div>
+    </main>
+
+    <!-- Script para los filtros locales -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.btn-filter');
+            const items = document.querySelectorAll('.transaction-item');
+            const title = document.getElementById('tituloMovimientos');
+
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Resetear los botones
+                    buttons.forEach(b => {
+                        b.style.backgroundColor = 'var(--color-surface-alt)';
+                        b.style.color = 'var(--color-text)';
+                        b.classList.remove('active');
+                    });
+
+                    // Activar el botón presionado (darle color de botón primario)
+                    btn.style.backgroundColor = 'var(--color-primary)';
+                    btn.style.color = '#fff';
+                    btn.classList.add('active');
+
+                    const filter = btn.getAttribute('data-filter');
+
+                    // Cambiar título según filtro
+                    if(filter === 'in') title.textContent = 'Solo Entradas';
+                    else if(filter === 'out') title.textContent = 'Solo Salidas';
+                    else title.textContent = 'Todos los Movimientos';
+
+                    // Ocultar / Mostrar items iterando sobre la lista
+                    items.forEach(item => {
+                        const type = item.getAttribute('data-type');
+                        if (filter === 'all' || filter === type) {
+                            item.style.display = 'list-item'; // mostrar
+                        } else {
+                            item.style.display = 'none'; // ocultar
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

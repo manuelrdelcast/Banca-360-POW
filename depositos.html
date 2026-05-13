@@ -1,15 +1,92 @@
-menu global 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depósitos - Banca 360</title>
 
-Enlace "Inicio/Resumen" -> dashboard.html
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/app.js" defer></script>   
+</head>  
+    
+<body class="dark">
+    <header class="header">
 
-Enlace "Transferencias" -> transferencias.html
+        <h1 class="header__logo">
+            <a href="dashboard.html" class="header__logo-link">
+                <img src="assets/img/Banca360.png" alt="Banca 360" class="header__logo-img">
+            </a>
+        </h1>
 
-Enlace "Pago Móvil" -> pago-movil.html
+        <div class="header__controls">
+            <button class="btn-theme" id="btnTheme" aria-label="Cambiar tema">
+                <div class="theme-switch" id="themeSwitch">🌙</div>
+            </button>
 
-Enlace "Depósitos" -> depositos.html
+            <button class="btn-hamburger" id="btnMenu" aria-label="Abrir menú" aria-expanded="false">
+                <span style="font-size:1.5rem; color:#fff;">☰</span>
+            </button>
+        </div>
 
-Enlace "Historial" -> historial.html
+        <nav class="nav" id="mainNav" aria-label="Navegación principal">
+            <ul class="nav__list">
+                <li class="nav__item"><a href="dashboard.html" class="nav__link">Inicio/Resumen</a></li>
+                <li class="nav__item"><a href="transferencias.html" class="nav__link">Transferencias</a></li>
+                <li class="nav__item"><a href="pago-movil.html" class="nav__link">Pago Móvil</a></li>
+                <li class="nav__item"><a href="depositos.html" class="nav__link nav__link--active">Depósitos</a></li>
+                <li class="nav__item"><a href="historial.html" class="nav__link">Historial</a></li>
+                <li class="nav__item"><a href="perfil.html" class="nav__link">Mi Perfil</a></li>
+                <li class="nav__item">
+                    <a href="sesion-finalizada.html" class="nav__link nav__link--logout">Cerrar Sesión</a>
+                </li>
+            </ul>
+        </nav>
 
-Enlace "Mi Perfil" -> perfil.html
+    </header>
 
-Botón "Cerrar Sesión" -> sesion-finalizada.html
+    <main class="main">
+        <section class="form-section">
+            <div style="text-align: center; margin-bottom: 1.5em;">
+                <div class="transaction-item__icon transaction-item__icon--in" style="margin: 0 auto 0.5em; width: 3.5em; height: 3.5em; font-size: 1.2rem;">
+                    💵
+                </div>
+                <h2 class="form-section__title" style="margin-bottom: 0.2em;">Simular Depósito</h2>
+                <p style="color: var(--color-text-muted); font-size: 0.9rem;">Ingresa fondos a tu cuenta virtual</p>
+            </div>
+
+            <form class="form" action="historial.html" method="POST">
+                
+                <div class="form__group">
+                    <label for="metodo" class="form__label">Método de ingreso</label>
+                    <div class="pm-form__select-wrap">
+                        <select id="metodo" name="metodo" class="pm-form__select" required>
+                            <option value="" disabled selected>Selecciona una opción</option>
+                            <option value="efectivo">Depósito en Efectivo (Taquillas del Banco)</option>
+                            <option value="transferencia">Transferencia de Terceros</option>
+                        </select>
+                        <span class="pm-form__select-arrow">▼</span>
+                    </div>
+                </div>
+
+                <div class="form__group">
+                    <label for="monto" class="form__label">Monto a depositar</label>
+                    <div class="pm-form__input-prefix-wrap">
+                        <span class="pm-form__input-prefix">Bs.</span>
+                        <input type="number" id="monto" name="monto" class="form__input pm-form__input--with-prefix" placeholder="0.00" min="1" step="0.01" required>
+                    </div>
+                </div>
+
+                <div class="form__group">
+                    <label for="concepto" class="form__label">Concepto (Opcional)</label>
+                    <input type="text" id="concepto" name="concepto" class="form__input" placeholder="Ej. Ahorros, Nómina, Venta...">
+                </div>
+
+                <div class="form__actions" style="margin-top: 1.5em;">
+                    <a href="dashboard.html" class="btn btn--secondary" style="text-decoration: none;">Cancelar</a>
+                    <button type="submit" class="btn btn--primary">Procesar Depósito</button>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
