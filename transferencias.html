@@ -1,15 +1,195 @@
-menu global 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transferencias - Banca 360</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>
+</head>
+<body>
 
-Enlace "Inicio/Resumen" -> dashboard.html
+    <header class="header">
+        <h1 class="header__logo">
+            <a href="Inicio.html" class="header__logo-link">
+                <img src="assets/img/Banca360.png" alt="Banca 360" class="header__logo-img">
+            </a>
+        </h1>
 
-Enlace "Transferencias" -> transferencias.html
+        <div class="header__controls">
+            <label class="theme-switch" aria-label="Cambiar tema">
+                <input type="checkbox" id="btnTheme" class="theme-switch__checkbox">
+                <span class="theme-switch__slider">
+                    <span class="theme-switch__icon theme-switch__icon--sun">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    </span>
+                    <span class="theme-switch__icon theme-switch__icon--moon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    </span>
+                </span>
+            </label>
+            <button class="btn-hamburger" id="btnMenu" aria-label="Abrir menú" aria-expanded="false">
+                <img src="assets/img/list.svg" alt="Menú" class="btn-hamburger__icon">
+            </button>
+        </div>
 
-Enlace "Pago Móvil" -> pago-movil.html
+        <nav class="nav" id="mainNav" aria-label="Navegación principal">
+            <ul class="nav__list">
+                <li class="nav__item"><a href="Inicio.html"          class="nav__link">Inicio</a></li>
+                <li class="nav__item"><a href="transferencias.html"  class="nav__link nav__link--active">Transferencias</a></li>
+                <li class="nav__item"><a href="pago-movil.html"      class="nav__link">Pago Móvil</a></li>
+                <li class="nav__item"><a href="depositos.html"       class="nav__link">Depósitos</a></li>
+                <li class="nav__item"><a href="historial.html"       class="nav__link">Historial</a></li>
+                <li class="nav__item"><a href="perfil.html"          class="nav__link">Mi Perfil</a></li>
+                <li class="nav__item">
+                    <a href="sesion-finalizada.html" class="nav__link nav__link--logout">Cerrar Sesión</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
 
-Enlace "Depósitos" -> depositos.html
+    <main class="main-content">
 
-Enlace "Historial" -> historial.html
+        <section class="page-header" aria-label="Título de sección">
+            <div class="page-header__icon">↗️</div>
+            <div>
+                <h2 class="page-header__title">Transferencias</h2>
+                <p class="page-header__subtitle">Envía dinero a cuentas del mismo banco o terceros</p>
+            </div>
+        </section>
 
-Enlace "Mi Perfil" -> perfil.html
+        <section class="form-card" aria-label="Formulario de transferencia">
+            <form id="transferenciaForm" class="pm-form" novalidate>
 
-Botón "Cerrar Sesión" -> sesion-finalizada.html
+                <div class="pm-form__field">
+                    <label for="numCuenta" class="pm-form__label">Número de cuenta de destino (20 dígitos)</label>
+                    <input
+                        type="text"
+                        id="numCuenta"
+                        name="numCuenta"
+                        class="pm-form__input"
+                        placeholder="0123 4567 89 0123456789"
+                        maxlength="20"
+                        inputmode="numeric"
+                        required
+                    >
+                    <span class="pm-form__hint">Debe incluir el código del banco al inicio.</span>
+                </div>
+
+                <div class="pm-form__field">
+                    <label for="monto" class="pm-form__label">Monto a transferir (Bs.)</label>
+                    <div class="pm-form__input-prefix-wrap">
+                        <span class="pm-form__input-prefix">Bs.</span>
+                        <input
+                            type="text"
+                            id="monto"
+                            name="monto"
+                            class="pm-form__input pm-form__input--with-prefix"
+                            placeholder="0,00"
+                            inputmode="decimal"
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="pm-form__field">
+                    <label for="concepto" class="pm-form__label">Concepto</label>
+                    <input
+                        type="text"
+                        id="concepto"
+                        name="concepto"
+                        class="pm-form__input"
+                        placeholder="Ej: Pago de alquiler, Almuerzo..."
+                        maxlength="100"
+                        required
+                    >
+                </div>
+
+                <div class="pm-form__actions" style="margin-top: 1em;">
+                    <button type="submit" class="btn btn--primary" id="btnEnviar">
+                        Confirmar transferencia
+                    </button>
+                    <a href="Inicio.html" class="btn btn--secondary" style="text-decoration: none; text-align: center;">
+                        Cancelar
+                    </a>
+                </div>
+
+            </form>
+        </section>
+
+        <div class="pm-modal" id="pmModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+            <div class="pm-modal__box">
+                <div class="pm-modal__icon">✅</div>
+                <h3 class="pm-modal__title" id="modalTitle">¡Transferencia Exitosa!</h3>
+                <p class="pm-modal__msg">Tu dinero ha sido enviado correctamente.</p>
+                <button class="btn btn--primary pm-modal__close" id="btnModalClose">
+                    Aceptar
+                </button>
+            </div>
+        </div>
+        <div class="pm-modal__backdrop" id="pmBackdrop" hidden></div>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer__grid">
+            <div class="footer__col">
+                <p class="footer__brand">Banca 360</p>
+                <p class="footer__copy">© 2026 Banca 360.<br>Todos los derechos reservados.</p>
+            </div>
+            <div class="footer__col">
+                <p class="footer__heading">Conoce</p>
+                <ul class="footer__list">
+                    <li><a href="#" class="footer__link">Acerca de Banca 360</a></li>
+                    <li><a href="#" class="footer__link">Información</a></li>
+                    <li><a href="#" class="footer__link">Términos y condiciones</a></li>
+                </ul>
+            </div>
+            <div class="footer__col">
+                <p class="footer__heading">Síguenos</p>
+                <div class="footer__social">
+                    <a href="#" class="footer__social-link" aria-label="Instagram">
+                        <img src="assets/img/instagram.svg" alt="Instagram" class="footer__social-icon">
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="Facebook">
+                        <img src="assets/img/facebook.svg" alt="Facebook" class="footer__social-icon">
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="LinkedIn">
+                        <img src="assets/img/linkedin.svg" alt="LinkedIn" class="footer__social-icon">
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="YouTube">
+                        <img src="assets/img/youtube.svg" alt="YouTube" class="footer__social-icon">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('transferenciaForm');
+            const modal = document.getElementById('pmModal');
+            const backdrop = document.getElementById('pmBackdrop');
+            const closeBtn = document.getElementById('btnModalClose');
+
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    modal.removeAttribute('hidden');
+                    backdrop.removeAttribute('hidden');
+                });
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    window.location.href = 'Inicio.html';
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

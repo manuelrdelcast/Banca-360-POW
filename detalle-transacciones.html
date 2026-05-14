@@ -4,30 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalle de Movimiento - Banca 360</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/app.js" defer></script>   
+    <script src="js/main.js" defer></script>   
 </head>  
-<body class="dark">
-    <!-- HEADER -->
+<body>
     <header class="header">
         <h1 class="header__logo">
-            <a href="inicio.html" class="header__logo-link">
+            <a href="Inicio.html" class="header__logo-link">
                 <img src="assets/img/Banca360.png" alt="Banca 360" class="header__logo-img">
             </a>
         </h1>
 
         <div class="header__controls">
-            <button class="btn-theme" id="btnTheme" aria-label="Cambiar tema">
-                <div class="theme-switch" id="themeSwitch">🌙</div>
-            </button>
+            <label class="theme-switch" aria-label="Cambiar tema">
+                <input type="checkbox" id="btnTheme" class="theme-switch__checkbox">
+                <span class="theme-switch__slider">
+                    <span class="theme-switch__icon theme-switch__icon--sun">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    </span>
+                    <span class="theme-switch__icon theme-switch__icon--moon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    </span>
+                </span>
+            </label>
+
             <button class="btn-hamburger" id="btnMenu" aria-label="Abrir menú" aria-expanded="false">
-                <span style="font-size:1.5rem; color:#fff;">☰</span>
+                <img src="assets/img/list.svg" alt="Menú" class="btn-hamburger__icon">
             </button>
         </div>
 
         <nav class="nav" id="mainNav" aria-label="Navegación principal">
             <ul class="nav__list">
-                <li class="nav__item"><a href="inicio.html" class="nav__link">Inicio/Resumen</a></li>
+                <li class="nav__item"><a href="Inicio.html" class="nav__link">Inicio</a></li>
                 <li class="nav__item"><a href="transferencias.html" class="nav__link">Transferencias</a></li>
                 <li class="nav__item"><a href="pago-movil.html" class="nav__link">Pago Móvil</a></li>
                 <li class="nav__item"><a href="depositos.html" class="nav__link">Depósitos</a></li>
@@ -40,21 +51,24 @@
         </nav>
     </header>
 
-    <main class="main">
-        <section class="form-section">
-            <div style="text-align: center; margin-bottom: 1.5em;">
-                <div id="dt-icon" class="transaction-item__icon" style="margin: 0 auto 0.5em; width: 3.5em; height: 3.5em; font-size: 1.2rem;">
-                    -
-                </div>
-                <h2 class="form-section__title" style="margin-bottom: 0.2em;">Detalle de Transacción</h2>
-                <div id="dt-amount" class="transaction-item__amount" style="font-size: 1.5rem;">Bs. 0.00</div>
+    <main class="main-content" style="max-width: 500px; margin-top: 2em;">
+        
+        <section class="page-header" aria-label="Título de sección" style="justify-content: center; margin-bottom: 1em; flex-direction: column; text-align: center; gap: 0.5em;">
+            <div id="dt-icon" class="transaction-item__icon" style="margin: 0 auto; width: 3.5em; height: 3.5em; font-size: 1.5rem; background-color: var(--color-surface); color: var(--color-text-muted); border: 2px solid var(--color-border);">
+                📄
             </div>
+            <div>
+                <h2 class="page-header__title" style="font-size: 1.1rem; color: var(--color-text-muted); font-weight: 500;">Detalle de Transacción</h2>
+                <div id="dt-amount" style="font-size: 2rem; font-weight: 700; color: var(--color-text); margin-top: 0.2em;">Bs. 0.00</div>
+            </div>
+        </section>
 
-            <div class="pm-summary" style="margin-bottom: 2em; animation: none;">
+        <section class="form-card" aria-label="Información de la transacción">
+            <div class="pm-summary" style="background-color: transparent; border: none; padding: 0;">
                 <dl class="pm-summary__list">
                     <div class="pm-summary__row">
                         <dt>Referencia</dt>
-                        <dd id="dt-ref">#0000000000</dd>
+                        <dd id="dt-ref" style="font-family: monospace; font-size: 1rem;">#00000000</dd>
                     </div>
                     <div class="pm-summary__row">
                         <dt>Fecha y Hora</dt>
@@ -70,55 +84,100 @@
                     </div>
                     <div class="pm-summary__row">
                         <dt>Estado</dt>
-                        <dd style="color: var(--color-in);">✔️ Aprobado</dd>
+                        <dd style="color: var(--color-in); font-weight: 700;">✔️ Aprobado</dd>
                     </div>
                 </dl>
             </div>
 
-            <div class="form__actions" style="justify-content: center; flex-direction: column; gap: 1em;">
-                <!-- Usando history.back() para regresar de donde vino el usuario -->
+            <div class="pm-form__actions" style="margin-top: 2em; flex-direction: column; gap: 1.2em;">
                 <button onclick="window.history.back()" class="btn btn--secondary" style="width: 100%;">
-                    ← Volver atrás
+                    ← Volver al Historial
                 </button>
-            </div>
-            
-            <div style="text-align: center; margin-top: 1.5em;">
-                <a href="#" style="color: var(--color-primary); font-size: 0.85rem; font-weight: 500; text-decoration: none;">⬇ Descargar Comprobante (PDF)</a>
+                <a href="#" style="color: var(--color-primary); font-size: 0.9rem; font-weight: 600; text-decoration: none; text-align: center; display: block; transition: color 0.3s ease;" onmouseover="this.style.color='var(--color-primary-dark)'" onmouseout="this.style.color='var(--color-primary)'">
+                    ⬇ Descargar Comprobante (PDF)
+                </a>
             </div>
         </section>
     </main>
 
-    <!-- Script para leer parámetros y actualizar la vista -->
+    <footer class="footer">
+        <div class="footer__grid">
+            <div class="footer__col">
+                <p class="footer__brand">Banca 360</p>
+                <p class="footer__copy">© 2026 Banca 360.<br>Todos los derechos reservados.</p>
+            </div>
+            <div class="footer__col">
+                <p class="footer__heading">Conoce</p>
+                <ul class="footer__list">
+                    <li><a href="#" class="footer__link">Acerca de Banca 360</a></li>
+                    <li><a href="#" class="footer__link">Información</a></li>
+                    <li><a href="#" class="footer__link">Términos y condiciones</a></li>
+                </ul>
+            </div>
+            <div class="footer__col">
+                <p class="footer__heading">Síguenos</p>
+                <div class="footer__social">
+                    <a href="#" class="footer__social-link" aria-label="Instagram">
+                        <img src="assets/img/instagram.svg" alt="Instagram" class="footer__social-icon">
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="Facebook">
+                        <img src="assets/img/facebook.svg" alt="Facebook" class="footer__social-icon">
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="LinkedIn">
+                        <img src="assets/img/linkedin.svg" alt="LinkedIn" class="footer__social-icon">
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="YouTube">
+                        <img src="assets/img/youtube.svg" alt="YouTube" class="footer__social-icon">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Leer los parámetros que vienen en el link (Ej: ?ref=123&monto=500&tipo=in)
             const params = new URLSearchParams(window.location.search);
             
-            const ref = params.get('ref') || 'Desconocido';
-            const fecha = params.get('fecha') || 'Desconocido';
-            const concepto = params.get('concepto') || 'Desconocido';
+            // Extraer variables (o poner valores por defecto si entra directo)
+            const ref = params.get('ref') || '00000000';
+            const fecha = params.get('fecha') || 'No disponible';
+            const concepto = params.get('concepto') || 'Transacción';
             const monto = params.get('monto') || '0.00';
-            const tipo = params.get('tipo') || 'out'; // in o out
-            
-            document.getElementById('dt-ref').textContent = '#' + ref;
-            document.getElementById('dt-fecha').textContent = fecha;
-            document.getElementById('dt-concepto').textContent = concepto;
-            
-            const iconEl = document.getElementById('dt-icon');
-            const amountEl = document.getElementById('dt-amount');
-            const tipoEl = document.getElementById('dt-tipo');
-            
+            const tipo = params.get('tipo') || 'neutral';
+
+            // Seleccionar los elementos del HTML
+            const dtRef = document.getElementById('dt-ref');
+            const dtFecha = document.getElementById('dt-fecha');
+            const dtConcepto = document.getElementById('dt-concepto');
+            const dtAmount = document.getElementById('dt-amount');
+            const dtIcon = document.getElementById('dt-icon');
+            const dtTipo = document.getElementById('dt-tipo');
+
+            // Inyectar el texto
+            dtRef.textContent = '#' + ref;
+            dtFecha.textContent = fecha;
+            dtConcepto.textContent = concepto;
+
+            // Lógica visual dependiendo de si es entrada o salida
             if (tipo === 'in') {
-                iconEl.textContent = '↓';
-                iconEl.className = 'transaction-item__icon transaction-item__icon--in';
-                amountEl.textContent = '+ Bs. ' + parseFloat(monto).toLocaleString('en-US', {minimumFractionDigits: 2});
-                amountEl.className = 'transaction-item__amount transaction-item__amount--in';
-                tipoEl.textContent = 'Ingreso / Abono';
+                dtAmount.textContent = '+ Bs. ' + monto;
+                dtAmount.style.color = 'var(--color-in)';
+                dtIcon.textContent = '↓';
+                dtIcon.style.backgroundColor = '#dcfce7'; // Fondo verde clarito
+                dtIcon.style.color = 'var(--color-in)';
+                dtIcon.style.borderColor = '#dcfce7';
+                dtTipo.textContent = 'Ingreso / Abono';
+            } else if (tipo === 'out') {
+                dtAmount.textContent = '- Bs. ' + monto;
+                dtAmount.style.color = 'var(--color-out)';
+                dtIcon.textContent = '↑';
+                dtIcon.style.backgroundColor = '#fee2e2'; // Fondo rojo clarito
+                dtIcon.style.color = 'var(--color-out)';
+                dtIcon.style.borderColor = '#fee2e2';
+                dtTipo.textContent = 'Cargo / Retiro';
             } else {
-                iconEl.textContent = '↑';
-                iconEl.className = 'transaction-item__icon transaction-item__icon--out';
-                amountEl.textContent = '- Bs. ' + parseFloat(monto).toLocaleString('en-US', {minimumFractionDigits: 2});
-                amountEl.className = 'transaction-item__amount transaction-item__amount--out';
-                tipoEl.textContent = 'Salida / Cargo';
+                dtAmount.textContent = 'Bs. ' + monto;
             }
         });
     </script>

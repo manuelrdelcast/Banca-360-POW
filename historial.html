@@ -4,29 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial de Transacciones - Banca 360</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/app.js" defer></script>   
+    <script src="js/main.js" defer></script>   
 </head>  
-<body class="dark">
+<body>
     <header class="header">
         <h1 class="header__logo">
-            <a href="inicio.html" class="header__logo-link">
+            <a href="Inicio.html" class="header__logo-link">
                 <img src="assets/img/Banca360.png" alt="Banca 360" class="header__logo-img">
             </a>
         </h1>
 
         <div class="header__controls">
-            <button class="btn-theme" id="btnTheme" aria-label="Cambiar tema">
-                <div class="theme-switch" id="themeSwitch">🌙</div>
-            </button>
+            <label class="theme-switch" aria-label="Cambiar tema">
+                <input type="checkbox" id="btnTheme" class="theme-switch__checkbox">
+                <span class="theme-switch__slider">
+                    <span class="theme-switch__icon theme-switch__icon--sun">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    </span>
+                    <span class="theme-switch__icon theme-switch__icon--moon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    </span>
+                </span>
+            </label>
             <button class="btn-hamburger" id="btnMenu" aria-label="Abrir menú" aria-expanded="false">
-                <span style="font-size:1.5rem; color:#fff;">☰</span>
+                <img src="assets/img/list.svg" alt="Menú" class="btn-hamburger__icon">
             </button>
         </div>
 
         <nav class="nav" id="mainNav" aria-label="Navegación principal">
             <ul class="nav__list">
-                <li class="nav__item"><a href="inicio.html" class="nav__link">Inicio/Resumen</a></li>
+                <li class="nav__item"><a href="Inicio.html" class="nav__link">Inicio</a></li>
                 <li class="nav__item"><a href="transferencias.html" class="nav__link">Transferencias</a></li>
                 <li class="nav__item"><a href="pago-movil.html" class="nav__link">Pago Móvil</a></li>
                 <li class="nav__item"><a href="depositos.html" class="nav__link">Depósitos</a></li>
@@ -39,8 +50,7 @@
         </nav>
     </header>
 
-    <main class="main-content" style="max-width: 800px;">
-        <!-- Cabecera de la sección con filtro -->
+    <main class="main-content">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1em; margin-bottom: 0.5em;">
             <h2 class="section-title" id="tituloMovimientos" style="margin-bottom: 0;">Todos los Movimientos</h2>
             
@@ -54,17 +64,14 @@
             </div>
         </div>
 
-        <!-- Botones de Segmentación Rápida -->
         <div style="display: flex; gap: 0.5em; margin-bottom: 1.5em; flex-wrap: wrap;">
-            <button class="btn btn--secondary btn-filter active" data-filter="all" style="padding: 0.5em 1em; font-size: 0.85rem; min-width: auto; background-color: var(--color-primary); color: #fff;">Todos</button>
+            <button class="btn btn--primary btn-filter" data-filter="all" style="padding: 0.5em 1em; font-size: 0.85rem; min-width: auto;">Todos</button>
             <button class="btn btn--secondary btn-filter" data-filter="in" style="padding: 0.5em 1em; font-size: 0.85rem; min-width: auto;">Solo Entradas</button>
             <button class="btn btn--secondary btn-filter" data-filter="out" style="padding: 0.5em 1em; font-size: 0.85rem; min-width: auto;">Solo Salidas</button>
         </div>
 
-        <!-- Lista de transacciones -->
         <ul class="transactions-list" id="listaTransacciones">
             
-            <!-- Ingreso -->
             <li class="transaction-item" data-type="in">
                 <a href="detalle-transacciones.html?ref=1837492&fecha=Hoy,%2010:45%20AM&concepto=Recarga%20Efectivo%20Taquilla&monto=5000.00&tipo=in" class="transaction-item__link">
                     <div class="transaction-item__icon transaction-item__icon--in">↓</div>
@@ -76,7 +83,6 @@
                 </a>
             </li>
 
-            <!-- Salida (Pago Móvil) -->
             <li class="transaction-item" data-type="out">
                 <a href="detalle-transacciones.html?ref=9283742&fecha=Ayer,%2004:20%20PM&concepto=Pago%20Móvil%20-%20Supermercado&monto=450.00&tipo=out" class="transaction-item__link">
                     <div class="transaction-item__icon transaction-item__icon--out">↑</div>
@@ -88,7 +94,6 @@
                 </a>
             </li>
             
-            <!-- Salida (Transferencia) -->
             <li class="transaction-item" data-type="out">
                 <a href="detalle-transacciones.html?ref=1029384&fecha=10%20Mayo%202026,%2002:15%20PM&concepto=Transferencia%20-%20Juan%20Pérez&monto=1000.00&tipo=out" class="transaction-item__link">
                     <div class="transaction-item__icon transaction-item__icon--out">↑</div>
@@ -100,7 +105,6 @@
                 </a>
             </li>
 
-            <!-- Ingreso (Transferencia) -->
             <li class="transaction-item" data-type="in">
                 <a href="detalle-transacciones.html?ref=8273645&fecha=08%20Mayo%202026,%2009:30%20AM&concepto=TDC%20Mismo%20Banco%20-%20María%20Gomez&monto=2300.00&tipo=in" class="transaction-item__link">
                     <div class="transaction-item__icon transaction-item__icon--in">↓</div>
@@ -112,7 +116,6 @@
                 </a>
             </li>
             
-            <!-- Salida -->
             <li class="transaction-item" data-type="out">
                 <a href="detalle-transacciones.html?ref=7382910&fecha=05%20Mayo%202026,%2011:10%20AM&concepto=Pago%20Móvil%20-%20Farmacia%20Centro&monto=320.50&tipo=out" class="transaction-item__link">
                     <div class="transaction-item__icon transaction-item__icon--out">↑</div>
@@ -126,7 +129,6 @@
 
         </ul>
 
-        <!-- Botón cargar más -->
         <div style="text-align: center; margin-top: 2em;">
             <button class="btn btn--secondary" style="font-size: 0.85rem; padding: 0.6em 1.25em;">
                 Cargar más movimientos
@@ -134,7 +136,40 @@
         </div>
     </main>
 
-    <!-- Script para los filtros locales -->
+    <footer class="footer">
+        <div class="footer__grid">
+            <div class="footer__col">
+                <p class="footer__brand">Banca 360</p>
+                <p class="footer__copy">© 2026 Banca 360.<br>Todos los derechos reservados.</p>
+            </div>
+            <div class="footer__col">
+                <p class="footer__heading">Conoce</p>
+                <ul class="footer__list">
+                    <li><a href="#" class="footer__link">Acerca de Banca 360</a></li>
+                    <li><a href="#" class="footer__link">Información</a></li>
+                    <li><a href="#" class="footer__link">Términos y condiciones</a></li>
+                </ul>
+            </div>
+            <div class="footer__col">
+                <p class="footer__heading">Síguenos</p>
+                <div class="footer__social">
+                    <a href="#" class="footer__social-link" aria-label="Instagram">
+                        <img src="assets/img/instagram.svg" alt="Instagram" class="footer__social-icon">
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="Facebook">
+                        <img src="assets/img/facebook.svg" alt="Facebook" class="footer__social-icon">
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="LinkedIn">
+                        <img src="assets/img/linkedin.svg" alt="LinkedIn" class="footer__social-icon">
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="YouTube">
+                        <img src="assets/img/youtube.svg" alt="YouTube" class="footer__social-icon">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const buttons = document.querySelectorAll('.btn-filter');
@@ -143,17 +178,15 @@
 
             buttons.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    // Resetear los botones
+                    // Resetear los botones (volverlos secundarios)
                     buttons.forEach(b => {
-                        b.style.backgroundColor = 'var(--color-surface-alt)';
-                        b.style.color = 'var(--color-text)';
-                        b.classList.remove('active');
+                        b.classList.remove('btn--primary');
+                        b.classList.add('btn--secondary');
                     });
 
-                    // Activar el botón presionado (darle color de botón primario)
-                    btn.style.backgroundColor = 'var(--color-primary)';
-                    btn.style.color = '#fff';
-                    btn.classList.add('active');
+                    // Activar el botón presionado (volverlo primario)
+                    btn.classList.remove('btn--secondary');
+                    btn.classList.add('btn--primary');
 
                     const filter = btn.getAttribute('data-filter');
 
@@ -166,7 +199,7 @@
                     items.forEach(item => {
                         const type = item.getAttribute('data-type');
                         if (filter === 'all' || filter === type) {
-                            item.style.display = 'list-item'; // mostrar
+                            item.style.display = 'flex'; // usar flex en vez de list-item para no romper el diseño CSS
                         } else {
                             item.style.display = 'none'; // ocultar
                         }

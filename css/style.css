@@ -976,7 +976,6 @@ body {
     position: fixed;
     inset: 0;
     z-index: 201;
-    display: flex;
     align-items: center;
     justify-content: center;
     pointer-events: none;
@@ -984,6 +983,7 @@ body {
 
 /* Cuando el modal está visible */
 .pm-modal:not([hidden]) {
+    display: flex;
     pointer-events: auto;
     animation: slideUp 0.3s ease;
 }
