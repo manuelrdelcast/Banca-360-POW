@@ -97,7 +97,7 @@ body {
 }
 
 /* Logo */
-.header__logo { line-height: 1; }
+.header__logo { line-height: 5; }
 
 .header__logo-link {
     display: flex;
@@ -106,7 +106,7 @@ body {
 }
 
 .header__logo-img {
-    height: 2em;
+    height: 5em;
     display: block;
 }
 
