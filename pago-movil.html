@@ -1,15 +1,309 @@
-menu global 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago Móvil - Banca 360</title>
+    <script>
+        // Aplicar el tema oscuro de inmediato
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+        // Inyectar un bloqueador temporal de animaciones
+        document.head.insertAdjacentHTML('beforeend', '<style id="bloqueo-animaciones">*, *::before, *::after { transition: none !important; }</style>');
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Hoja de estilos global -->
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>
+</head>
+<body>
 
-Enlace "Inicio/Resumen" -> dashboard.html
+    <!-- ========== HEADER GLOBAL ========== -->
+    <header class="header">
+        <h1 class="header__logo">
+            <a href="Inicio.html" class="header__logo-link">
+                <img src="assets/img/Banca360.png" alt="Banca 360" class="header__logo-img">
+            </a>
+        </h1>
 
-Enlace "Transferencias" -> transferencias.html
+        <div class="header__controls">
+            <label class="theme-switch" aria-label="Cambiar tema">
+                <input type="checkbox" id="btnTheme" class="theme-switch__checkbox">
+                <span class="theme-switch__slider">
+                    <span class="theme-switch__icon theme-switch__icon--sun">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    </span>
+                    <span class="theme-switch__icon theme-switch__icon--moon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    </span>
+                </span>
+            </label>
+            
+            <button class="btn-hamburger" id="btnMenu" aria-label="Abrir menú" aria-expanded="false">
+                <img src="assets/img/list.svg" alt="Menú" class="btn-hamburger__icon">
+            </button>
+        </div>
 
-Enlace "Pago Móvil" -> pago-movil.html
+        <nav class="nav" id="mainNav" aria-label="Navegación principal">
+            <ul class="nav__list">
+                <li class="nav__item"><a href="Inicio.html"          class="nav__link">Inicio</a></li>
+                <li class="nav__item"><a href="transferencias.html"  class="nav__link">Transferencias</a></li>
+                <li class="nav__item"><a href="pago-movil.html"      class="nav__link nav__link--active">Pago Móvil</a></li>
+                <li class="nav__item"><a href="depositos.html"       class="nav__link">Depósitos</a></li>
+                <li class="nav__item"><a href="historial.html"       class="nav__link">Historial</a></li>
+                <li class="nav__item"><a href="perfil.html"          class="nav__link">Mi Perfil</a></li>
+                <li class="nav__item">
+                    <a href="sesion-finalizada.html" class="nav__link nav__link--logout">Cerrar Sesión</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
 
-Enlace "Depósitos" -> depositos.html
+    <!-- ========== CONTENIDO PRINCIPAL ========== -->
+    <main class="main-content">
 
-Enlace "Historial" -> historial.html
+        <!-- Encabezado de página -->
+        <section class="page-header" aria-label="Título de sección">
+            <div class="page-header__icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-phone-fill" viewBox="0 0 16 16">
+                    <path d="M3 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm6 11a1 1 0 1 0-2 0 1 1 0 0 0 2 0"/>
+                </svg>
+            </div>
+            <div>
+                <h2 class="page-header__title">Pago Móvil</h2>
+                <p class="page-header__subtitle">Realiza pagos rápidos con número de teléfono</p>
+            </div>
+        </section>
 
-Enlace "Mi Perfil" -> perfil.html
+        <!-- Tarjeta del formulario -->
+        <section class="form-card" aria-label="Formulario de pago móvil">
+            <form id="pagoMovilForm" class="pm-form">
 
-Botón "Cerrar Sesión" -> sesion-finalizada.html
+                <!-- ── FILA 1: Tipo de documento + N° documento ── -->
+                <fieldset class="pm-form__group pm-form__group--split">
+                    <legend class="pm-form__legend">Cédula / RIF del receptor</legend>
+
+                    <!-- Selector tipo de documento -->
+                    <div class="pm-form__field">
+                        <label for="tipoDoc" class="pm-form__label">Tipo</label>
+                        <div class="pm-form__select-wrap">
+                            <select id="tipoDoc" name="tipoDoc" class="pm-form__select" required>
+                                <option value="">--</option>
+                                <option value="V">V</option>
+                                <option value="E">E</option>
+                                <option value="J">J</option>
+                                <option value="R">R</option>
+                            </select>
+                            <span class="pm-form__select-arrow">▾</span>
+                        </div>
+                        <span class="pm-form__error" id="tipoDocError"></span>
+                    </div>
+
+                    <!-- Número de documento -->
+                    <div class="pm-form__field pm-form__field--grow">
+                        <label for="numDoc" class="pm-form__label">Número de documento</label>
+                        <input
+                            type="text"
+                            id="numDoc"
+                            name="numDoc"
+                            class="pm-form__input"
+                            placeholder="Ej: 1234567890"
+                            maxlength="10"
+                            inputmode="numeric"
+                            required
+                        >
+                        <span class="pm-form__error" id="numDocError"></span>
+                    </div>
+                </fieldset>
+
+                <!-- ── FILA 2: Banco destino ── -->
+                <div class="pm-form__field">
+                    <label for="banco" class="pm-form__label">Banco destino</label>
+                    <div class="pm-form__select-wrap">
+                        <select id="banco" name="banco" class="pm-form__select" required>
+                            <option value="">Selecciona un banco</option>
+                            <option value="0172">Bancamiga</option>
+                            <option value="0134">Banesco</option>
+                            <option value="0102">Banco de Venezuela</option>
+                            <option value="0105">Mercantil</option>
+                            <option value="0108">BBVA Provincial</option>
+                            <option value="0191">BNC</option>
+                        </select>
+                        <span class="pm-form__select-arrow">▾</span>
+                    </div>
+                    <span class="pm-form__error" id="bancoError"></span>
+                </div>
+
+                <!-- ── FILA 3: Prefijo + Número de teléfono ── -->
+                <fieldset class="pm-form__group pm-form__group--split">
+                    <legend class="pm-form__legend">Teléfono del receptor</legend>
+
+                    <!-- Selector prefijo -->
+                    <div class="pm-form__field">
+                        <label for="prefijo" class="pm-form__label">Prefijo</label>
+                        <div class="pm-form__select-wrap">
+                            <select id="prefijo" name="prefijo" class="pm-form__select" required>
+                                <option value="">---</option>
+                                <option value="0412">0412</option>
+                                <option value="0414">0414</option>
+                                <option value="0416">0416</option>
+                                <option value="0422">0422</option>
+                                <option value="0424">0424</option>
+                            </select>
+                            <span class="pm-form__select-arrow">▾</span>
+                        </div>
+                        <span class="pm-form__error" id="prefijoError"></span>
+                    </div>
+
+                    <!-- Número de teléfono (7 dígitos restantes) -->
+                    <div class="pm-form__field pm-form__field--grow">
+                        <label for="numTelefono" class="pm-form__label">Número (7 dígitos)</label>
+                        <input
+                            type="text"
+                            id="numTelefono"
+                            name="numTelefono"
+                            class="pm-form__input"
+                            placeholder="Ej: 1234567"
+                            minlength="7"
+                            maxlength="7"
+                            inputmode="numeric"
+                            required
+                        >
+                        <span class="pm-form__error" id="numTelefonoError"></span>
+                    </div>
+                </fieldset>
+
+                <!-- ── FILA 4: Monto ── -->
+                <div class="pm-form__field">
+                    <label for="monto" class="pm-form__label">Monto (Bs.)</label>
+                    <div class="pm-form__input-prefix-wrap">
+                        <!-- Prefijo visual fijo -->
+                        <span class="pm-form__input-prefix">Bs.</span>
+                        <input
+                            type="text"
+                            id="monto"
+                            name="monto"
+                            class="pm-form__input pm-form__input--with-prefix"
+                            placeholder="0,00"
+                            inputmode="decimal"
+                            required
+                        >
+                    </div>
+                    <span class="pm-form__error" id="montoError"></span>
+                </div>
+
+                <!-- ── FILA 5: Concepto ── -->
+                <div class="pm-form__field">
+                    <label for="concepto" class="pm-form__label">Concepto (Opcional)</label>
+                    <input
+                        type="text"
+                        id="concepto"
+                        name="concepto"
+                        class="pm-form__input"
+                        placeholder="Ej: Pago de servicio"
+                        maxlength="100"
+                    >
+                    <span class="pm-form__char-count" id="conceptoCount">0 / 100</span>
+                    <span class="pm-form__error" id="conceptoError"></span>
+                </div>
+
+                <!-- ── Resumen previo al envío ── -->
+                <div class="pm-summary" id="pmSummary" hidden>
+                    <h3 class="pm-summary__title">Resumen del pago</h3>
+                    <dl class="pm-summary__list">
+                        <div class="pm-summary__row">
+                            <dt>Receptor</dt>
+                            <dd id="summaryReceptor">—</dd>
+                        </div>
+                        <div class="pm-summary__row">
+                            <dt>Banco</dt>
+                            <dd id="summaryBanco">—</dd>
+                        </div>
+                        <div class="pm-summary__row">
+                            <dt>Teléfono</dt>
+                            <dd id="summaryTelefono">—</dd>
+                        </div>
+                        <div class="pm-summary__row pm-summary__row--total">
+                            <dt>Monto</dt>
+                            <dd id="summaryMonto">—</dd>
+                        </div>
+                        <div class="pm-summary__row">
+                            <dt>Concepto</dt>
+                            <dd id="summaryConcepto">—</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="pm-form__actions">
+                    <button type="submit" class="btn btn--primary" id="btnEnviar">
+                        Confirmar pago
+                    </button>
+                    <a href="Inicio.html" class="btn btn--secondary" style="text-decoration: none; text-align: center;">
+                        Cancelar
+                    </a>
+                </div>
+
+            </form>
+        </section>
+
+        <!-- ── Modal de éxito ── -->
+        <div class="pm-modal" id="pmModal" role="dialog" aria-modal="true"
+             aria-labelledby="modalTitle" hidden>
+            <div class="pm-modal__box">
+                <div class="pm-modal__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                        <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                    </svg>
+                </div>
+                <h3 class="pm-modal__title" id="modalTitle">¡Pago Móvil enviado!</h3>
+                <p class="pm-modal__msg" id="modalMsg">Tu dinero ha sido enviado correctamente.</p>
+                <button class="btn btn--primary pm-modal__close" id="btnModalClose">
+                    Aceptar
+                </button>
+            </div>
+        </div>
+        <!-- Fondo oscuro del modal -->
+        <div class="pm-modal__backdrop" id="pmBackdrop" hidden></div>
+
+    </main>
+
+    <!-- ========== FOOTER GLOBAL ========== -->
+    <footer class="footer">
+        <div class="footer__grid">
+            <div class="footer__col">
+                <p class="footer__brand">Banca 360</p>
+                <p class="footer__copy">© 2026 Banca 360.<br>Todos los derechos reservados.</p>
+            </div>
+            <div class="footer__col">
+                <p class="footer__heading">Conoce</p>
+                <ul class="footer__list">
+                    <li><a class="footer__link">Acerca de Banca 360</a></li>
+                    <li><a class="footer__link">Información</a></li>
+                    <li><a class="footer__link">Términos y condiciones</a></li>
+                </ul>
+            </div>
+            <div class="footer__col">
+                <p class="footer__heading">Síguenos</p>
+                <div class="footer__social">
+                    <a class="footer__social-link" aria-label="Instagram">
+                        <img src="assets/img/instagram.svg" alt="Instagram" class="footer__social-icon">
+                    </a>
+                    <a class="footer__social-link" aria-label="Facebook">
+                        <img src="assets/img/facebook.svg" alt="Facebook" class="footer__social-icon">
+                    </a>
+                    <a  class="footer__social-link" aria-label="LinkedIn">
+                        <img src="assets/img/linkedin.svg" alt="LinkedIn" class="footer__social-icon">
+                    </a>
+                    <a class="footer__social-link" aria-label="YouTube">
+                        <img src="assets/img/youtube.svg" alt="YouTube" class="footer__social-icon">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

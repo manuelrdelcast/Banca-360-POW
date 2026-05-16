@@ -1,15 +1,177 @@
-menu global 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depósitos - Banca 360</title>
+    <script>
+        // Aplicar el tema oscuro de inmediato
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+        // Inyectar un bloqueador temporal de animaciones
+        document.head.insertAdjacentHTML('beforeend', '<style id="bloqueo-animaciones">*, *::before, *::after { transition: none !important; }</style>');
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>   
+</head>  
+<body>
+    <header class="header">
+        <h1 class="header__logo">
+            <a href="Inicio.html" class="header__logo-link">
+                <img src="assets/img/Banca360.png" alt="Banca 360" class="header__logo-img">
+            </a>
+        </h1>
 
-Enlace "Inicio/Resumen" -> dashboard.html
+        <div class="header__controls">
+            <label class="theme-switch" aria-label="Cambiar tema">
+                <input type="checkbox" id="btnTheme" class="theme-switch__checkbox">
+                <span class="theme-switch__slider">
+                    <span class="theme-switch__icon theme-switch__icon--sun">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    </span>
+                    <span class="theme-switch__icon theme-switch__icon--moon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    </span>
+                </span>
+            </label>
 
-Enlace "Transferencias" -> transferencias.html
+            <button class="btn-hamburger" id="btnMenu" aria-label="Abrir menú" aria-expanded="false">
+                <img src="assets/img/list.svg" alt="Menú" class="btn-hamburger__icon">
+            </button>
+        </div>
 
-Enlace "Pago Móvil" -> pago-movil.html
+        <nav class="nav" id="mainNav" aria-label="Navegación principal">
+            <ul class="nav__list">
+                <li class="nav__item"><a href="Inicio.html" class="nav__link">Inicio</a></li>
+                <li class="nav__item"><a href="transferencias.html" class="nav__link">Transferencias</a></li>
+                <li class="nav__item"><a href="pago-movil.html" class="nav__link">Pago Móvil</a></li>
+                <li class="nav__item"><a href="depositos.html" class="nav__link nav__link--active">Depósitos</a></li>
+                <li class="nav__item"><a href="historial.html" class="nav__link">Historial</a></li>
+                <li class="nav__item"><a href="perfil.html" class="nav__link">Mi Perfil</a></li>
+                <li class="nav__item">
+                    <a href="sesion-finalizada.html" class="nav__link nav__link--logout">Cerrar Sesión</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
 
-Enlace "Depósitos" -> depositos.html
+    <main class="main-content">
+        
+        <section class="page-header" aria-label="Título de sección">
+            <div class="page-header__icon" style="background-color: var(--color-surface);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-cash-stack" viewBox="0 0 16 16">
+                    <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+                    <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2z"/>
+                </svg>
+            </div>
+            <div>
+                <h2 class="page-header__title">Depósitos</h2>
+                <p class="page-header__subtitle">Ingresa fondos a tu cuenta virtual</p>
+            </div>
+        </section>
 
-Enlace "Historial" -> historial.html
+        <section class="form-card" aria-label="Formulario de depósito">
+            <form class="pm-form" method="GET">
+                <form id="depositoForm" class="pm-form">
+                
+                <div class="pm-form__field">
+                    <label for="metodo" class="pm-form__label">Método de ingreso</label>
+                    <div class="pm-form__select-wrap">
+                        <select id="metodo" name="metodo" class="pm-form__select" required>
+                            <option value="" disabled selected>Selecciona una opción</option>
+                            <option value="efectivo">Depósito en Efectivo (Taquillas del Banco)</option>
+                            <option value="transferencia">Transferencia de Terceros</option>
+                        </select>
+                        <span class="pm-form__select-arrow">▼</span>
+                    </div>
+                </div>
 
-Enlace "Mi Perfil" -> perfil.html
+                <div class="pm-form__field">
+                    <label for="monto" class="pm-form__label">Monto a Depositar (Bs.)</label>
+                    <div class="pm-form__input-prefix-wrap">
+                        <!-- Prefijo visual fijo -->
+                        <span class="pm-form__input-prefix">Bs.</span>
+                        <input
+                            type="text"
+                            id="monto"
+                            name="monto"
+                            class="pm-form__input pm-form__input--with-prefix"
+                            placeholder="0,00"
+                            inputmode="decimal"
+                            required
+                        >
+                    </div>
+                    <span class="pm-form__hint">Solo números positivos. Formato: 1.500,00</span>
+                    <span class="pm-form__error" id="montoError"></span>
+                </div>
 
-Botón "Cerrar Sesión" -> sesion-finalizada.html
+                <div class="pm-form__field">
+                    <label for="concepto" class="pm-form__label">Concepto (Opcional)</label>
+                    <input type="text" id="concepto" name="concepto" class="pm-form__input" placeholder="Ej. Ahorros, Nómina, Venta...">
+                </div>
+
+                <div class="pm-form__actions">
+                    <button type="submit" class="btn btn--primary" >Procesar Depósito</button>
+                    <a href="Inicio.html" class="btn btn--secondary" style="text-decoration: none; text-align: center;">
+                        Cancelar
+                    </a>
+                </div>
+                
+            </form>
+        </section>
+        <div class="pm-modal" id="pmModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+            <div class="pm-modal__box">
+                <div class="pm-modal__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                        <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
+                    </svg>
+                </div>
+                <h3 class="pm-modal__title" id="modalTitle">¡Depósito Exitoso!</h3>
+                <p class="pm-modal__msg">Tu depósito ha sido procesado correctamente.</p>
+                <button class="btn btn--primary pm-modal__close" id="btnModalClose">
+                    Aceptar
+                </button>
+            </div>
+        </div>
+        <div class="pm-modal__backdrop" id="pmBackdrop" hidden></div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer__grid">
+            <div class="footer__col">
+                <p class="footer__brand">Banca 360</p>
+                <p class="footer__copy">© 2026 Banca 360.<br>Todos los derechos reservados.</p>
+            </div>
+            <div class="footer__col">
+                <p class="footer__heading">Conoce</p>
+                <ul class="footer__list">
+                    <li><a href="#" class="footer__link">Acerca de Banca 360</a></li>
+                    <li><a href="#" class="footer__link">Información</a></li>
+                    <li><a href="#" class="footer__link">Términos y condiciones</a></li>
+                </ul>
+            </div>
+            <div class="footer__col">
+                <p class="footer__heading">Síguenos</p>
+                <div class="footer__social">
+                    <a href="#" class="footer__social-link" aria-label="Instagram">
+                        <img src="assets/img/instagram.svg" alt="Instagram" class="footer__social-icon">
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="Facebook">
+                        <img src="assets/img/facebook.svg" alt="Facebook" class="footer__social-icon">
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="LinkedIn">
+                        <img src="assets/img/linkedin.svg" alt="LinkedIn" class="footer__social-icon">
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="YouTube">
+                        <img src="assets/img/youtube.svg" alt="YouTube" class="footer__social-icon">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
