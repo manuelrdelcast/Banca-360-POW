@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio - Banca 360</title>
+    <script>
+        // Aplicar el tema oscuro de inmediato
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+        // Inyectar un bloqueador temporal de animaciones
+        document.head.insertAdjacentHTML('beforeend', '<style id="bloqueo-animaciones">*, *::before, *::after { transition: none !important; }</style>');
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -89,19 +97,37 @@
             <h3 class="section-title">Operaciones</h3>
             <div class="quick-actions__grid">
                 <a href="transferencias.html" class="quick-actions__card">
-                    <span class="quick-actions__icon">↗</span>
+                    <span class="quick-actions__icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z"/>
+                        </svg>
+                    </span>
                     <span class="quick-actions__label">Transferir</span>
                 </a>
                 <a href="pago-movil.html" class="quick-actions__card">
-                    <span class="quick-actions__icon">📱</span>
+                    <span class="quick-actions__icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-phone-fill" viewBox="0 0 16 16">
+                            <path d="M3 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm6 11a1 1 0 1 0-2 0 1 1 0 0 0 2 0"/>
+                        </svg>
+                    </span>
                     <span class="quick-actions__label">Pago Móvil</span>
                 </a>
                 <a href="depositos.html" class="quick-actions__card">
-                    <span class="quick-actions__icon">↙</span>
+                    <span class="quick-actions__icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2 13.5a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 0-1H3.707L13.854 2.854a.5.5 0 0 0-.708-.708L3 12.293V7.5a.5.5 0 0 0-1 0z"/>
+                        </svg>
+                    </span>
                     <span class="quick-actions__label">Depositar</span>
                 </a>
                 <a href="historial.html" class="quick-actions__card">
-                    <span class="quick-actions__icon">📋</span>
+                    <span class="quick-actions__icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-history" viewBox="0 0 16 16">
+                            <path d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022zm2.004.45a7 7 0 0 0-.985-.299l.219-.976q.576.129 1.126.342zm1.37.71a7 7 0 0 0-.439-.27l.493-.87a8 8 0 0 1 .979.654l-.615.789a7 7 0 0 0-.418-.302zm1.834 1.79a7 7 0 0 0-.653-.796l.724-.69q.406.429.747.91zm.744 1.352a7 7 0 0 0-.214-.468l.893-.45a8 8 0 0 1 .45 1.088l-.95.313a7 7 0 0 0-.179-.483m.53 2.507a7 7 0 0 0-.1-1.025l.985-.17q.1.58.116 1.17zm-.131 1.538q.05-.254.081-.51l.993.123a8 8 0 0 1-.23 1.155l-.964-.267q.069-.247.12-.501m-.952 2.379q.276-.436.486-.908l.914.405q-.24.54-.555 1.038zm-.964 1.205q.183-.183.35-.378l.758.653a8 8 0 0 1-.401.432z"/>
+                            <path d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z"/>
+                            <path d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5"/>
+                        </svg>
+                    </span>
                     <span class="quick-actions__label">Historial</span>
                 </a>
             </div>
@@ -113,40 +139,54 @@
             <ul class="transactions-list">
 
                 <li class="transaction-item">
-                    <a href="detalle-transaccion.html?id=TX001" class="transaction-item__link">
-                        <div class="transaction-item__icon transaction-item__icon--out">↗</div>
+                    <a href="detalle-transacciones.html?ref=00005&fecha=10%20May%202026&concepto=Transferencia%20a%20Juan%20Pérez&monto=500.00&tipo=out" class="transaction-item__link">
+                        <div class="transaction-item__icon transaction-item__icon--out">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z"/>
+                            </svg>
+                        </div>
                         <div class="transaction-item__info">
                             <span class="transaction-item__desc">Transferencia a Juan Pérez</span>
-                            <span class="transaction-item__date">10 May 2026 · #TX001</span>
+                            <span class="transaction-item__date">Hoy, 8:30 PM</span>
                         </div>
                         <span class="transaction-item__amount transaction-item__amount--out">- Bs. 500.00</span>
                     </a>
                 </li>
 
                 <li class="transaction-item">
-                    <a href="detalle-transaccion.html?id=TX002" class="transaction-item__link">
-                        <div class="transaction-item__icon transaction-item__icon--in">↙</div>
+                    <a href="detalle-transacciones.html?ref=00004&fecha=09%20May%202026&concepto=Depósito%20recibido&monto=2000.00&tipo=in" class="transaction-item__link">
+                        <div class="transaction-item__icon transaction-item__icon--in">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M2 13.5a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 0-1H3.707L13.854 2.854a.5.5 0 0 0-.708-.708L3 12.293V7.5a.5.5 0 0 0-1 0z"/>
+                            </svg>
+                        </div>
                         <div class="transaction-item__info">
                             <span class="transaction-item__desc">Depósito recibido</span>
-                            <span class="transaction-item__date">09 May 2026 · #TX002</span>
+                            <span class="transaction-item__date">Hoy, 3:00 PM</span>
                         </div>
                         <span class="transaction-item__amount transaction-item__amount--in">+ Bs. 2,000.00</span>
                     </a>
                 </li>
 
                 <li class="transaction-item">
-                    <a href="detalle-transaccion.html?id=TX003" class="transaction-item__link">
-                        <div class="transaction-item__icon transaction-item__icon--out">📱</div>
+                    <a href="detalle-transacciones.html?ref=00003&fecha=08%20May%202026&concepto=Pago%20Móvil%20a%20María%20López&monto=150.00&tipo=out" class="transaction-item__link">
+                        <div class="transaction-item__icon transaction-item__icon--out">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-phone-fill" viewBox="0 0 16 16">
+                                <path d="M3 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm6 11a1 1 0 1 0-2 0 1 1 0 0 0 2 0"/>
+                            </svg>
+                        </div>
                         <div class="transaction-item__info">
                             <span class="transaction-item__desc">Pago Móvil a María López</span>
-                            <span class="transaction-item__date">08 May 2026 · #TX003</span>
+                            <span class="transaction-item__date">Hoy, 2:15 PM</span>
                         </div>
                         <span class="transaction-item__amount transaction-item__amount--out">- Bs. 150.00</span>
                     </a>
                 </li>
 
             </ul>
-            <a href="historial.html" class="btn-ver-todo">Ver todo el historial →</a>
+            <div style="display: flex; justify-content: center; margin-top: 1.5em;">
+                <a href="historial.html" class="btn btn--secondary" style="text-decoration: none; text-align: center;">Ver todo el historial</a>
+            </div>
         </section>
 
     </main>

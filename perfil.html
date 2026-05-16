@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Perfil - Banca 360</title>
+    <script>
+        // Aplicar el tema oscuro de inmediato
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+        // Inyectar un bloqueador temporal de animaciones
+        document.head.insertAdjacentHTML('beforeend', '<style id="bloqueo-animaciones">*, *::before, *::after { transition: none !important; }</style>');
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -51,10 +59,14 @@
         </nav>
     </header>
 
-    <main class="main-content" style="max-width: 600px;">
+    <main class="main-content">
 
-        <section class="page-header" aria-label="Título de sección">
-            <div class="page-header__icon">👤</div>
+        <section class="page-header" aria-label="Título de sección" style="justify-content: center;">
+            <div class="page-header__icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                 </svg>
+            </div>
             <div>
                 <h2 class="page-header__title">Datos del Usuario</h2>
                 <p class="page-header__subtitle">Gestiona tu información personal</p>
@@ -67,27 +79,26 @@
                 <dl class="pm-summary__list">
                     <div class="pm-summary__row">
                         <dt>Nombre</dt>
-                        <dd>Usuario de Prueba</dd>
+                        <dd>Carlos Rodriguez</dd>
                     </div>
                     <div class="pm-summary__row">
-                        <dt>Cédula</dt>
+                        <dt>ID</dt>
                         <dd>V-12345678</dd>
                     </div>
                     <div class="pm-summary__row">
                         <dt>Email</dt>
-                        <dd>usuario@correo.com</dd>
+                        <dd>carlos.rodriguez@correo.com</dd>
                     </div>
                     <div class="pm-summary__row">
                         <dt>Teléfono Afiliado</dt>
-                        <dd>0414-0000000</dd>
+                        <dd>0414-1234567</dd>
                     </div>
                 </dl>
             </div>
 
             <div class="pm-form__actions" style="margin-top: 2em; justify-content: center;">
-                <a href="sesion-finalizada.html" class="btn btn--primary" style="background-color: var(--color-out); text-decoration: none; width: 100%; max-width: 300px;">
-                    Cerrar Sesión
-                </a>
+                <a href="sesion-finalizada.html" class="btn btn--primary" style="background-color: var(--color-out); text-decoration: none; width: 100%; max-width: 300px;">Cerrar Sesión</a>
+                <a href="cambiar-contraseña.html" class="btn btn--secondary" style="text-decoration: none; width: 100%; max-width: 300px;">Cambiar Contraseña</a>
             </div>
 
         </section>

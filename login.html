@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión - Banca 360</title>
+    <script>
+        // Aplicar el tema oscuro de inmediato
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+        // Inyectar un bloqueador temporal de animaciones
+        document.head.insertAdjacentHTML('beforeend', '<style id="bloqueo-animaciones">*, *::before, *::after { transition: none !important; }</style>');
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -35,7 +43,11 @@
     <main class="main-content" style="max-width: 500px; margin-top: 2em;">
         
         <section class="page-header" aria-label="Título de sección" style="justify-content: center; margin-bottom: 1em;">
-            <div class="page-header__icon">🔐</div>
+            <div class="page-header__icon"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z"/>
+                <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                </svg>
+            </div>
             <div style="text-align: center;">
                 <h2 class="page-header__title">Iniciar Sesión</h2>
                 <p class="page-header__subtitle">Ingresa a tu cuenta Banca 360</p>
@@ -46,26 +58,36 @@
             <form action="Inicio.html" method="GET" class="pm-form">
 
                 <div class="pm-form__field">
-                    <label for="usuario" class="pm-form__label">Usuario</label>
+                    <label for="email" class="pm-form__label">Correo Electrónico</label>
                     <input 
-                        type="text" 
-                        id="usuario" 
-                        name="usuario" 
+                        type="email" 
+                        id="email" 
+                        name="email"  
                         class="pm-form__input" 
+                        placeholder="Ingresa tu correo electrónico"
                         required
                     >
                 </div>
 
                 <div class="pm-form__field">
                     <label for="password" class="pm-form__label">Contraseña</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
-                        class="pm-form__input" 
-                        placeholder="Ingresa tu contraseña" 
-                        required
-                    >
+                    <div style="position: relative; display: flex; align-items: center;">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            class="pm-form__input" 
+                            placeholder="Ingresa tu contraseña" 
+                            required 
+                            inputmode="numeric"
+                            pattern="[0-9]{6,}"
+                            title="La contraseña debe contener solo números y un mínimo de 6 dígitos."
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                            style="padding-right: 2.5rem;">
+                        <button type="button" class="toggle-password" data-target="password" style="position: absolute; right: 0.75rem; background: none; border: none; cursor: pointer; color: var(--color-text-muted); display: flex; padding: 0;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16"><path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/><path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/></svg>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="pm-form__actions" style="margin-top: 1em;">
@@ -83,9 +105,38 @@
 
     </main>
 
-    <footer class="footer" style="padding: 1.5em; text-align: center;">
-        <p class="footer__brand">Banca 360</p>
-        <p class="footer__copy">© 2026 Banca 360. Todos los derechos reservados.</p>
+    <footer class="footer">
+        <div class="footer__grid">
+            <div class="footer__col">
+                <p class="footer__brand">Banca 360</p>
+                <p class="footer__copy">© 2026 Banca 360.<br>Todos los derechos reservados.</p>
+            </div>
+            <div class="footer__col">
+                <p class="footer__heading">Conoce</p>
+                <ul class="footer__list">
+                    <li><a href="#" class="footer__link">Acerca de Banca 360</a></li>
+                    <li><a href="#" class="footer__link">Información</a></li>
+                    <li><a href="#" class="footer__link">Términos y condiciones</a></li>
+                </ul>
+            </div>
+            <div class="footer__col">
+                <p class="footer__heading">Síguenos</p>
+                <div class="footer__social">
+                    <a href="#" class="footer__social-link" aria-label="Instagram">
+                        <img src="assets/img/instagram.svg" alt="Instagram" class="footer__social-icon">
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="Facebook">
+                        <img src="assets/img/facebook.svg" alt="Facebook" class="footer__social-icon">
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="LinkedIn">
+                        <img src="assets/img/linkedin.svg" alt="LinkedIn" class="footer__social-icon">
+                    </a>
+                    <a href="#" class="footer__social-link" aria-label="YouTube">
+                        <img src="assets/img/youtube.svg" alt="YouTube" class="footer__social-icon">
+                    </a>
+                </div>
+            </div>
+        </div>
     </footer>
 
 </body>

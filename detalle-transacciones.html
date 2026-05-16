@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalle de Movimiento - Banca 360</title>
+    <script>
+        // Aplicar el tema oscuro de inmediato
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+        // Inyectar un bloqueador temporal de animaciones
+        document.head.insertAdjacentHTML('beforeend', '<style id="bloqueo-animaciones">*, *::before, *::after { transition: none !important; }</style>');
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -54,9 +62,7 @@
     <main class="main-content" style="max-width: 500px; margin-top: 2em;">
         
         <section class="page-header" aria-label="Título de sección" style="justify-content: center; margin-bottom: 1em; flex-direction: column; text-align: center; gap: 0.5em;">
-            <div id="dt-icon" class="transaction-item__icon" style="margin: 0 auto; width: 3.5em; height: 3.5em; font-size: 1.5rem; background-color: var(--color-surface); color: var(--color-text-muted); border: 2px solid var(--color-border);">
-                📄
-            </div>
+            <div id="dt-icon" class="transaction-item__icon" style="margin: 0 auto; width: 3.5em; height: 3.5em; font-size: 1.5rem; background-color: var(--color-surface); color: var(--color-text-muted); border: 2px solid var(--color-border);"></div>
             <div>
                 <h2 class="page-header__title" style="font-size: 1.1rem; color: var(--color-text-muted); font-weight: 500;">Detalle de Transacción</h2>
                 <div id="dt-amount" style="font-size: 2rem; font-weight: 700; color: var(--color-text); margin-top: 0.2em;">Bs. 0.00</div>
@@ -84,18 +90,18 @@
                     </div>
                     <div class="pm-summary__row">
                         <dt>Estado</dt>
-                        <dd style="color: var(--color-in); font-weight: 700;">✔️ Aprobado</dd>
+                        <dd style="color: var(--color-in); font-weight: 700; display: flex; align-items: center; gap: 0.3em;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+                                <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
+                            </svg>
+                            Aprobado
+                        </dd>
                     </div>
                 </dl>
             </div>
 
             <div class="pm-form__actions" style="margin-top: 2em; flex-direction: column; gap: 1.2em;">
-                <button onclick="window.history.back()" class="btn btn--secondary" style="width: 100%;">
-                    ← Volver al Historial
-                </button>
-                <a href="#" style="color: var(--color-primary); font-size: 0.9rem; font-weight: 600; text-decoration: none; text-align: center; display: block; transition: color 0.3s ease;" onmouseover="this.style.color='var(--color-primary-dark)'" onmouseout="this.style.color='var(--color-primary)'">
-                    ⬇ Descargar Comprobante (PDF)
-                </a>
+                <button onclick="window.history.back()" class="btn btn--secondary" style="width: 100%;">Volver</button>
             </div>
         </section>
     </main>
@@ -134,52 +140,5 @@
         </div>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Leer los parámetros que vienen en el link (Ej: ?ref=123&monto=500&tipo=in)
-            const params = new URLSearchParams(window.location.search);
-            
-            // Extraer variables (o poner valores por defecto si entra directo)
-            const ref = params.get('ref') || '00000000';
-            const fecha = params.get('fecha') || 'No disponible';
-            const concepto = params.get('concepto') || 'Transacción';
-            const monto = params.get('monto') || '0.00';
-            const tipo = params.get('tipo') || 'neutral';
-
-            // Seleccionar los elementos del HTML
-            const dtRef = document.getElementById('dt-ref');
-            const dtFecha = document.getElementById('dt-fecha');
-            const dtConcepto = document.getElementById('dt-concepto');
-            const dtAmount = document.getElementById('dt-amount');
-            const dtIcon = document.getElementById('dt-icon');
-            const dtTipo = document.getElementById('dt-tipo');
-
-            // Inyectar el texto
-            dtRef.textContent = '#' + ref;
-            dtFecha.textContent = fecha;
-            dtConcepto.textContent = concepto;
-
-            // Lógica visual dependiendo de si es entrada o salida
-            if (tipo === 'in') {
-                dtAmount.textContent = '+ Bs. ' + monto;
-                dtAmount.style.color = 'var(--color-in)';
-                dtIcon.textContent = '↓';
-                dtIcon.style.backgroundColor = '#dcfce7'; // Fondo verde clarito
-                dtIcon.style.color = 'var(--color-in)';
-                dtIcon.style.borderColor = '#dcfce7';
-                dtTipo.textContent = 'Ingreso / Abono';
-            } else if (tipo === 'out') {
-                dtAmount.textContent = '- Bs. ' + monto;
-                dtAmount.style.color = 'var(--color-out)';
-                dtIcon.textContent = '↑';
-                dtIcon.style.backgroundColor = '#fee2e2'; // Fondo rojo clarito
-                dtIcon.style.color = 'var(--color-out)';
-                dtIcon.style.borderColor = '#fee2e2';
-                dtTipo.textContent = 'Cargo / Retiro';
-            } else {
-                dtAmount.textContent = 'Bs. ' + monto;
-            }
-        });
-    </script>
 </body>
 </html>
