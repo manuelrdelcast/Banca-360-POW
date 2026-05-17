@@ -75,6 +75,9 @@ body {
     color: var(--color-text);
     line-height: 1.6;
     transition: background-color var(--transition), color var(--transition);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 /* ============================================================
@@ -226,6 +229,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1.75em;
+    width: 100%;
+    flex: 1;
 }
 
 /* Título de sección interno */
