@@ -224,13 +224,13 @@ body {
 
 .main-content {
     max-width: 900px;
-    margin: 0 auto;
     padding: 1.5em 1em 3em;
     display: flex;
     flex-direction: column;
     gap: 1.75em;
     width: 100%;
     flex: 1;
+    align-self: center;
 }
 
 /* Título de sección interno */
