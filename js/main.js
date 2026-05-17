@@ -152,23 +152,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ----------------------------------------------------------
-       6. LÓGICA DE FORMULARIOS CON MODAL (Pago Móvil / Transferencias / Depósitos)
+       6. LÓGICA DE VALIDACIÓN ESTRICTA DE FORMULARIOS (Todos los forms)
     ---------------------------------------------------------- */
-    const formConModal = document.getElementById('pagoMovilForm') || document.getElementById('transferenciaForm') || document.getElementById('depositoForm');
-    const pmModal  = document.getElementById('pmModal');
-    const pmBackdrop = document.getElementById('pmBackdrop');
-    const btnCloseModal = document.getElementById('btnModalClose');
+    // Seleccionamos TODOS los formularios de la página
+    const todosLosFormularios = document.querySelectorAll('.pm-form');
 
-    if (formConModal && pmModal && pmBackdrop) {
-        
+    todosLosFormularios.forEach(formulario => {
         // A. Validar campos en tiempo real mientras escribe
-        const inputsRequeridos = formConModal.querySelectorAll('input[required], select[required]');
+        const inputsRequeridos = formulario.querySelectorAll('input[required], select[required]');
         
         inputsRequeridos.forEach(input => {
             input.addEventListener('input', function() {
                 // Evitar escribir letras en los campos estrictamente numéricos
                 if (this.id === 'numDoc' || this.id === 'numTelefono' || this.id === 'numCuenta') {
                     this.value = this.value.replace(/[^0-9]/g, ''); 
+                }
+
+                // Específico para campos de monto: permitimos números, coma y punto
+                if (this.id === 'monto') {
+                    this.value = this.value.replace(/[^0-9,.]/g, ''); 
                 }
 
                 // --- VALIDACIONES ESTRICTAS DE CANTIDAD DE DÍGITOS ---
@@ -198,8 +200,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
+    });
 
-        // B. Validar al presionar enviar
+    /* ----------------------------------------------------------
+       6.1. MODALES PARA (Pago Móvil / Transferencias / Depósitos)
+    ---------------------------------------------------------- */
+    const formConModal = document.getElementById('pagoMovilForm') || document.getElementById('transferenciaForm') || document.getElementById('depositoForm');
+    const pmModal  = document.getElementById('pmModal');
+    const pmBackdrop = document.getElementById('pmBackdrop');
+    const btnCloseModal = document.getElementById('btnModalClose');
+
+    if (formConModal && pmModal && pmBackdrop) {
+        // B. Validar al presionar enviar y mostrar Modal
         formConModal.addEventListener('submit', (e) => {
             e.preventDefault();
 
@@ -207,6 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 pmModal.removeAttribute('hidden');
                 pmBackdrop.removeAttribute('hidden');
             } else {
+                const inputsRequeridos = formConModal.querySelectorAll('input[required], select[required]');
                 inputsRequeridos.forEach(input => {
                     if (!input.checkValidity()) input.classList.add('invalid');
                 });
@@ -304,7 +317,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ----------------------------------------------------------
-       9. LIBERACIÓN DE ANIMACIONES
+       9. SPINNER LOGIN
+    ---------------------------------------------------------- */
+    // Buscamos específicamente el formulario de login (el que tiene action="Inicio.html")
+    const loginForm = document.querySelector('form.pm-form[action="Inicio.html"]');
+
+    if (loginForm && !document.getElementById('pmModal')) {
+        loginForm.addEventListener('submit', function(e) {
+            // Solo detenemos el envío si el formulario es válido HTML5
+            if (this.checkValidity()) {
+                e.preventDefault(); 
+                
+                const submitBtn = this.querySelector('button[type="submit"]');
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.style.opacity = '0.7';
+                    submitBtn.innerHTML = '<span class="btn-spinner"></span> Iniciando...';
+                    
+                    setTimeout(() => {
+                        window.location.href = this.getAttribute('action') || 'Inicio.html';
+                    }, 2000);
+                }
+            }
+        });
+    }
+
+    /* ----------------------------------------------------------
+       10. LIBERACIÓN DE ANIMACIONES
     ---------------------------------------------------------- */
     // Remueve la etiqueta inyectada en HTML para habilitar las animaciones 
     // después de cargar el tema oscuro inicial.

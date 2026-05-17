@@ -106,6 +106,44 @@
                     </div>
                 </section>
 
+                <!-- Número de teléfono -->
+                <fieldset class="pm-form__group pm-form__group--split">
+
+                    <!-- Selector prefijo -->
+                    <div class="pm-form__field">
+                        <label for="prefijo" class="pm-form__label">Prefijo</label>
+                        <div class="pm-form__select-wrap">
+                            <select id="prefijo" name="prefijo" class="pm-form__select" required>
+                                <option value="">---</option>
+                                <option value="0412">0412</option>
+                                <option value="0414">0414</option>
+                                <option value="0416">0416</option>
+                                <option value="0422">0422</option>
+                                <option value="0424">0424</option>
+                            </select>
+                            <span class="pm-form__select-arrow">▾</span>
+                        </div>
+                        <span class="pm-form__error" id="prefijoError"></span>
+                    </div>
+
+                    <!-- Número de teléfono (7 dígitos restantes) -->
+                    <div class="pm-form__field pm-form__field--grow">
+                        <label for="numTelefono" class="pm-form__label">Número de teléfono</label>
+                        <input
+                            type="text"
+                            id="numTelefono"
+                            name="numTelefono"
+                            class="pm-form__input"
+                            placeholder="Ej: 1234567"
+                            minlength="7"
+                            maxlength="7"
+                            inputmode="numeric"
+                            required
+                        >
+                        <span class="pm-form__error" id="numTelefonoError"></span>
+                    </div>
+                </fieldset>               
+
                 <div class="pm-form__field">
                     <label for="email" class="pm-form__label">Correo Electrónico</label>
                     <input 
@@ -119,6 +157,7 @@
                 </div>
                 <div class="pm-form__field">
                     <label for="password" class="pm-form__label">Contraseña</label>
+                    <span class="pm-form__hint">Debe ser un pin de al menos 6 dígitos.</span>
                     <div style="position: relative; display: flex; align-items: center;">
                         <input type="password" 
                             id="password" 
